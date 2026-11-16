@@ -1,0 +1,6 @@
+{
+  "name": "SAHABAT POS",
+  "description": "Aplikasi kasir, stok barang, pembelian, biaya operasional, dan laporan untuk SAHABAT Accessories & Service.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

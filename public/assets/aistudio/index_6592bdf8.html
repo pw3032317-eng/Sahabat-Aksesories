@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0f1c"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><title>SAHABAT ACC</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f3f5f9;--card:#fff;--tx:#0e1726;--mu:#5b6678;--bd:#dde3ee;--bl:#1f6feb;--bl2:#0b3d91;--or:#ff8a1f;--gr:#16a34a;--rd:#dc2626;--yl:#d99a00;--sb:#0a0f1c;--sh:0 1px 3px rgba(10,15,28,.08);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1120;--card:#121a2e;--tx:#e7ecf6;--mu:#93a0b8;--bd:#22304d;--sh:none;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1120;--card:#121a2e;--tx:#e7ecf6;--mu:#93a0b8;--bd:#22304d;--sh:none;color-scheme:dark}
+*,*:before,*:after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font:14px/1.5 Inter,system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--or);outline-offset:2px}
+.btn{min-height:44px;padding:0 18px;border-radius:10px;border:1px solid var(--bd);background:var(--card);font-weight:600}
+.btn.pri{background:var(--bl);border-color:var(--bl);color:#fff}
+.btn.pri:hover{background:var(--bl2)}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.6;cursor:wait}
+input.in{width:100%;min-height:44px;padding:0 14px;border:1px solid var(--bd);border-radius:10px;background:var(--card)}
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--or);z-index:99;transition:width .3s}
+#off{display:none;background:var(--rd);color:#fff;text-align:center;padding:6px;font-weight:600}
+/* login */
+.lg{min-height:100vh;display:grid;place-items:center;padding:20px;background:linear-gradient(140deg,#050912,#0b3d91)}
+.lgc{width:100%;max-width:400px;background:var(--card);border-radius:18px;padding:32px 28px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.logo{display:flex;align-items:center;gap:12px}
+.logo i{width:44px;height:44px;border-radius:12px;background:var(--or);display:grid;place-items:center;font-style:normal;font-size:22px}
+.logo b{font-size:20px;letter-spacing:.5px;display:block;line-height:1.1}
+.logo small{color:var(--mu)}
+.fld{margin-top:16px}
+.fld label{display:block;font-weight:600;margin-bottom:6px}
+.pw{position:relative}
+.pw button{position:absolute;right:4px;top:0;height:44px;width:48px;border:0;background:none}
+.err{margin-top:14px;padding:10px 12px;border-radius:10px;background:rgba(220,38,38,.12);color:var(--rd);font-weight:500}
+.hint{margin-top:16px;color:var(--mu);font-size:12.5px}
+/* shell */
+.sb{position:fixed;inset:0 auto 0 0;width:232px;background:var(--sb);color:#cdd6e8;padding:calc(14px + env(safe-area-inset-top,0px)) 12px 14px;display:flex;flex-direction:column;z-index:40;transition:transform .25s;overflow-y:auto}
+.sb .logo{padding:6px 8px 18px;color:#fff}
+.sb .logo small{color:#8a97b3}
+.sb a{display:flex;align-items:center;gap:12px;min-height:44px;padding:0 12px;border-radius:10px;color:inherit;text-decoration:none;font-weight:500}
+.sb a:hover{background:#151d33}
+.sb a.on{background:var(--bl);color:#fff}
+.sb a span.k{margin-left:auto;font-size:11px;opacity:.55}
+.mn{margin-left:232px;min-height:100vh;display:flex;flex-direction:column}
+.tb{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;align-items:center;gap:12px;padding:10px 20px;background:var(--card);border-bottom:1px solid var(--bd)}
+.tb h1{font-size:18px;margin:0;white-space:nowrap}
+.hb{display:none;width:44px;height:44px;border-radius:10px;border:1px solid var(--bd);background:var(--card);font-size:20px}
+.sr{position:relative;flex:1;max-width:460px;margin:0 auto}
+#dd{position:absolute;left:0;right:0;top:50px;background:var(--card);border:1px solid var(--bd);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.25);display:none;overflow:hidden}
+#dd .it{display:flex;justify-content:space-between;gap:10px;align-items:center;width:100%;padding:10px 14px;border:0;border-bottom:1px solid var(--bd);background:none;text-align:left;min-height:44px}
+#dd .it:hover{background:var(--bg)}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:12px;font-weight:700;white-space:nowrap}
+.b-gr{background:rgba(22,163,74,.15);color:var(--gr)}.b-yl{background:rgba(217,154,0,.18);color:var(--yl)}.b-rd{background:rgba(220,38,38,.15);color:var(--rd)}.b-bl{background:rgba(31,111,235,.15);color:var(--bl)}.b-or{background:rgba(255,138,31,.18);color:#c25e00}
+.usr{display:flex;align-items:center;gap:10px;margin-left:auto;white-space:nowrap}
+.usr small{display:block;color:var(--mu);line-height:1.1}
+.ct{flex:1;padding:20px}
+.ft{padding:14px 20px;color:var(--mu);font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between;border-top:1px solid var(--bd)}
+.bn{display:none}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;box-shadow:var(--sh)}
+.card h3{margin:0 0 10px;font-size:15px}
+.kpi{border:1px solid var(--bd);border-left:4px solid var(--bl);text-align:left;width:100%}
+.kpi .l{color:var(--mu);font-weight:500}
+.kpi .v{font-size:22px;font-weight:800;margin-top:4px}
+.kpi.o{border-left-color:var(--or)}.kpi.g{border-left-color:var(--gr)}.kpi.r{border-left-color:var(--rd)}.kpi.y{border-left-color:var(--yl)}
+.two{display:grid;gap:14px;grid-template-columns:3fr 2fr;margin-top:14px}
+.chart{display:flex;align-items:flex-end;gap:10px;height:190px;padding-top:10px}
+.chart div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;font-size:11px;color:var(--mu)}
+.chart i{display:block;width:100%;max-width:46px;background:var(--bl);border-radius:6px 6px 0 0;min-height:3px}
+.chart div:last-child i{background:var(--or)}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th,td{padding:9px 8px;border-bottom:1px solid var(--bd);text-align:left;white-space:nowrap}
+td.n,th.n{text-align:right}
+.ph{text-align:center;padding:48px 16px}
+.ph .e{font-size:44px}
+#toasts{position:fixed;right:16px;top:calc(16px + env(safe-area-inset-top,0px));z-index:100;display:flex;flex-direction:column;gap:8px;max-width:calc(100vw - 32px)}
+.toast{padding:12px 16px;border-radius:12px;background:var(--sb);color:#fff;border-left:5px solid var(--bl);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.toast.err{border-color:var(--rd)}.toast.ok{border-color:var(--gr)}.toast.warn{border-color:var(--yl)}
+.ov{position:fixed;inset:0;background:rgba(5,9,18,.6);display:grid;place-items:center;z-index:90;padding:16px}
+.dlg{background:var(--card);border-radius:16px;padding:22px;max-width:380px;width:100%}
+.dlg .row{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.chip{min-height:44px;padding:0 14px;border-radius:99px;border:1px solid var(--bd);background:var(--card)}.chip.on{background:var(--bl);color:#fff;border-color:var(--bl)}
+.pg{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));margin-top:14px}
+.pc{text-align:left;padding:14px;border:1px solid var(--bd);border-radius:14px;background:var(--card);display:flex;flex-direction:column;gap:6px}
+.pc:hover{border-color:var(--bl)}.pc .pr{font-size:20px;font-weight:800;color:var(--bl)}
+.fg{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+.fg label{font-weight:600;font-size:13px;display:block;margin-bottom:4px}
+select.in{width:100%;min-height:44px;padding:0 10px;border:1px solid var(--bd);border-radius:10px;background:var(--card)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.dlg.w{max-width:520px;max-height:90vh;overflow:auto}
+th.s{cursor:pointer}
+.dd{position:absolute;left:0;right:0;top:50px;z-index:20;background:var(--card);border:1px solid var(--bd);border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.25);display:none;overflow:hidden}
+.dd .it{display:flex;justify-content:space-between;gap:10px;align-items:center;width:100%;padding:10px 14px;border:0;border-bottom:1px solid var(--bd);background:none;text-align:left;min-height:44px}
+.dd .it:hover{background:var(--bg)}
+.rc{font:12px/1.45 ui-monospace,Menlo,monospace;color:#000;background:#fff;padding:10px;border-radius:8px}
+.rc hr{border:0;border-top:1px dashed #000;margin:6px 0}
+#pa{display:none}
+@media print{#root,#toasts,#bar,#off,.ov{display:none!important}#pa{display:block!important}#pa .rc{padding:0}#pa.r58{width:58mm}#pa.r80{width:80mm}#pa.ra5 .rc{font-size:14px}}
+.pgb{height:10px;border-radius:99px;background:var(--bd);overflow:hidden;margin-top:12px}.pgb i{display:block;height:100%;width:0;background:var(--or);transition:width .3s}
+#pa.rrep{width:auto;color:#000;background:#fff;font:12px Inter,sans-serif}#pa.rrep table{width:100%;border-collapse:collapse}#pa.rrep th,#pa.rrep td{border-bottom:1px solid #999;padding:4px}
+.lgi{height:44px;width:44px;border-radius:10px;display:block;flex:none}
+.lgc .lgi{height:60px;width:60px}
+.rl{display:block;margin:0 auto 6px;width:28%;max-width:84px;height:auto}
+@media print{#pa .rl{filter:grayscale(1) contrast(1.5)}#pa.ra5 .rl{max-width:110px}}
+.lgi{border-radius:0;filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+.lgc .lgi{height:72px;width:72px}
+.sb .lgi{height:48px;width:48px}
+input[type=checkbox]{width:20px;height:20px;accent-color:var(--bl)}
+td.ck,th.ck{width:48px;padding:6px 10px;cursor:pointer;text-align:center}
+tr.pr{cursor:pointer}tr.pr:hover{background:var(--bg)}
+.selbar{display:none;position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:36;align-items:center;gap:10px;background:var(--sb);color:#fff;padding:10px 14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.4);white-space:nowrap}
+.selbar .btn{min-height:40px}
+@media (max-width:900px){.selbar{bottom:calc(66px + env(safe-area-inset-bottom,0px))}}
+.cbar,.cbsp{display:none}
+@media (max-width:700px){
+#cart table,#cart tbody,#cart tr,#cart td{display:block;width:100%}
+#cart thead{display:none}
+#cart tr{border:1px solid var(--bd);border-radius:12px;padding:10px;margin-bottom:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}
+#cart td{border:0;padding:0;white-space:normal}
+#cart td::before{content:attr(data-l);display:block;font-size:11px;color:var(--mu)}
+#cart td:nth-child(1){display:none}
+#cart td:nth-child(2){grid-column:1/-1;font-weight:700}
+#cart td:nth-child(2)::before{display:none}
+#cart td input,#cart td select{width:100%!important}
+}
+@media (max-width:900px){
+.cbar{display:flex;position:fixed;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom,0px));z-index:34;background:var(--card);border-top:1px solid var(--bd);padding:8px 12px;justify-content:space-between;align-items:center;gap:12px}
+.cbar .btn{flex:1;max-width:240px}.cbar b{font-size:18px}.cbsp{display:block;height:76px}
+}
+@media (max-width:900px){
+.sb{transform:translateX(-100%)}.sb.open{transform:none}
+.mn{margin-left:0;padding-bottom:64px}.hb{display:block}
+.tb{padding:8px 12px;flex-wrap:wrap}.tb h1{font-size:16px}.sr{order:5;flex:1 1 100%;max-width:none}.usr small{display:none}
+.ct{padding:14px}.two{grid-template-columns:1fr}
+.bn{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bd);z-index:35;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bn button{flex:1;min-height:56px;border:0;background:none;font-size:11px;color:var(--mu);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.bn button.on{color:var(--bl);font-weight:700}
+.bn button span{font-size:20px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.sb,.tb,.ft,.bn{display:none!important}.mn{margin:0}}
+</style>
+</head>
+<body>
+<div id="bar"></div><div id="off">Tidak ada koneksi internet</div>
+<div id="root"></div><div id="toasts"></div>
+<script>
+"use strict";
+/* ===== Konfigurasi: isi GAS_URL setelah backend siap (Tahap 5-7). Kosong = MODE DEMO ===== */
+const CFG = { GAS_URL: "", SHEET_ID: "", DRIVE_FOLDER_ID: "" };   // isi GAS_URL dengan URL Web App (berakhiran /exec); SHEET_ID dan DRIVE_FOLDER_ID hanya catatan, dipakai di sisi server
+try { const u0 = localStorage.getItem("sahabat_gas"); if (!CFG.GAS_URL && u0) CFG.GAS_URL = u0; } catch(e){}
+const DEMO = !CFG.GAS_URL;
+const VERSION = "1.0.0";
+const LOGO = "data:image/webp;base64,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";   // logo SAHABAT (dipakai di login, sidebar, ikon tab, dan nota)
+const ICON = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAMAAAAKE/YAAAABIFBMVEVlXl7q4ODjn6LVXl7hAAalZGNkKhUpIB7SvcOhmZrdg3vUEyGzAAprPEKQJR3HAA2RRTjGOkOefYJiQjy8vsTUeoONOULWwb2cgny8AAu5AQt/AADUAA54h4jCRj5/f4FsgH+/wr+4AQ3EAQ9qBwz59vbw6OnIx8sAAABxFBjT1deQGyMSBAMwCAePAwtMFhJTBwisJzGPJitxJiqKFhzRV1by19c0FRTVZ2dwNjZRJilyGyPLSEzvyMnNt7hvJxW0RkrndnNyR0iyp6mvNDqQZ2mNVlW5trbUdnOONTLMqKrkaWezOkSuiIqvlpja2+G9w8ZTNjWThoinGidyVlaKSEpOHCLqiIaRdnfNl5btt7kzJybUh4myEhiwVVKrd3aJxgvjAAAAYHRSTlP/////Cv////////sT//2N////////////jlcEWP///////v7/////AP/////////////////////////+///////////////////////////////////////////+//+bVD7fAAAj/klEQVR42s2dCUMay9KGBxSBKMbglrt9C0TmACrC4AzDFsIOAsoqIML//xdfVXXPTA+bkNzvJn2OxsREH17frq7uru6R/lrbDg8P4f0J/BIMBgNWu6f2bVN7eHjAt4d1n2P/1PpSwc3tkH179n5Nk9YzE/EJ/8L/cWgOzkF2gz7EF3lySrS/DTp4fEzchztBE/JnA/X3QSP35/XY0qqb//rn5+Og+KV/GzRi//OvVWdLqzoDskX6m6ERe1VraZn5n3+zdb7fDs3E3gINP4jPweAfBk1i2y0iQp/8ZTL/UdArFpFEa/zNZP6zoIPBz59FaklkFv7WHwYN2AK1ZDF/Dv7J0CK1ZPbBvwX/bOjgZ7M3SmvN8bPQ35B3K/T7L0D/tQR9IsQ6G/UStIFtB39YaZupf8kgJyI0JhsBk3WL0uslN0gZbji89GrWsNu+liDVbgaRmDf+zjI688vY1bB9bq1RHsKZjKIouq4Ph8Mrn66wFg7H1ml/vyL6jrL/nTlEIuZ/fF4LJii9xu4MPJlRGlfDoWux8Lfb7cmkCc056cDHbf+iUqkO4RWY6NvJd5D6H0SN0Ccnn9dawPpCtq9pIgf65dbc5VrM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";   // ikon S untuk tab browser dan layar utama HP
+try { document.head.insertAdjacentHTML("beforeend", '<link rel="icon" type="image/png" href="' + ICON + '"><link rel="apple-touch-icon" href="' + ICON + '">'); } catch(e){}
+const MENUS = [
+  ["dashboard","Dashboard","📊",""],["sales","Penjualan","🛒","F1"],["purchase","Pembelian","📦","F2"],
+  ["expense","Biaya","💸","F3"],["product","Produk","🏷️","F4"],["search","Pencarian","🔎","F5"],
+  ["report","Laporan","📈","F6"],["master","Master","🗂️","F7"],["utility","Utilitas","🛠️",""],["account","Akun","👤",""]
+];
+const FKEYS = {F1:"sales",F2:"purchase",F3:"expense",F4:"product",F6:"report",F7:"master"};
+const STAGE = {sales:3,purchase:3,expense:3,product:2,search:2,master:2,report:4,utility:4,account:4};
+
+/* ===== Utilitas ===== */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const rp = n => new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(n || 0);
+const fmtD = iso => String(iso).split("-").reverse().join("/");
+const isoD = d => d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const ss = {
+  get(k){ try { return sessionStorage.getItem(k); } catch(e){ return null; } },
+  set(k,v){ try { sessionStorage.setItem(k,v); } catch(e){} },
+  del(k){ try { sessionStorage.removeItem(k); } catch(e){} }
+};
+function toast(msg, type = "", ms = 3500, retry, label){
+  const t = document.createElement("div");
+  t.className = "toast " + type; t.textContent = msg;
+  if (retry){
+    const b = document.createElement("button"); b.className = "btn"; b.textContent = label || "Coba lagi"; b.style.cssText = "margin-left:12px;min-height:36px;color:#0e1726";
+    b.onclick = () => { t.remove(); retry(); }; t.appendChild(b);
+  }
+  $("#toasts").appendChild(t); setTimeout(() => t.remove(), ms);
+}
+function confirmDlg(msg, okText = "Ya, lanjutkan"){
+  return new Promise(res => {
+    const o = document.createElement("div"); o.className = "ov";
+    o.innerHTML = `<div class="dlg" role="dialog" aria-modal="true"><p style="margin:0;font-weight:600">${esc(msg)}</p><div class="row"><button class="btn" data-v="0">Batal</button><button class="btn pri" data-v="1">${esc(okText)}</button></div></div>`;
+    o.onclick = e => { const b = e.target.closest("button"); if (b || e.target === o){ o.remove(); res(!!b && b.dataset.v === "1"); } };
+    document.body.appendChild(o); $("button.pri", o).focus();
+  });
+}
+let busy = 0;
+function loading(on){ busy += on ? 1 : -1; const b = $("#bar"); b.style.width = busy > 0 ? "70%" : "0"; }
+
+/* ===== Tema ===== */
+function applyTheme(t){ if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme; }
+try { applyTheme(localStorage.getItem("sahabat_theme")); } catch(e){}
+function toggleTheme(){
+  const dark = document.documentElement.dataset.theme === "dark" || (!document.documentElement.dataset.theme && matchMedia("(prefers-color-scheme:dark)").matches);
+  const n = dark ? "light" : "dark"; applyTheme(n);
+  try { localStorage.setItem("sahabat_theme", n); } catch(e){}
+}
+
+/* ===== Data demo (hanya dipakai saat GAS_URL kosong) ===== */
+const DEMO_USERS = {
+  owner:{p:"owner123",role:"owner",perms:"*"},
+  admin:{p:"admin123",role:"admin",perms:["dashboard","sales","product","search","report"]}
+};
+const DEMO_P = [];   // data barang dikosongkan: tambahkan lewat menu Produk atau Impor CSV
+const DEMO_S = [];   // riwayat penjualan demo dikosongkan
+const DEMO_M = Object.fromEntries(Object.entries({
+  konsumen:["Umum","Budi","Siti","Andi","Rina"], supplier:["Grosir Jaya","Mitra Seluler"], biaya:["Listrik","Gaji","Sewa","Internet"],
+  kartu:["Telkomsel","XL","Indosat","Tri"], kategori:["Garskin","Casing","Charger","Kabel Data","Tempered Glass","Earphone","Powerbank","Aksesoris","Jasa Service","Pulsa"],
+  tipe:["Universal","Samsung","Oppo","Vivo","Xiaomi","iPhone"], satuan:["Pcs","Unit","Lembar","Jasa"]
+}).map(([k, a]) => [k, a.map((n, i) => ({id:i + 1, nama:n}))]));
+const num = v => Math.max(0, Number(v) || 0);
+function cleanP(d, old){
+  const t = k => String(d[k] ?? "").trim();
+  return {kode:t("kode"), nama:t("nama"), kategori:t("kategori"), tipe:t("tipe"), hpp: S && S.role === "owner" ? num(d.hpp) : (old ? old.hpp : 0),
+    harga:num(d.harga), harga_a:num(d.harga_a), harga_b:num(d.harga_b), harga_c:num(d.harga_c), harga_d:num(d.harga_d), harga_min:num(d.harga_min),
+    stok:Math.floor(num(d.stok)), satuan:t("satuan") || "Pcs", supplier:t("supplier"), jasa:/^(1|ya|true)$/i.test(t("jasa"))};
+}
+function upsertP(d){
+  if (!String(d.nama || "").trim()) throw new Error("Nama produk wajib diisi");
+  if (!(Number(d.harga) > 0)) throw new Error("Harga jual harus lebih dari 0");
+  const old = DEMO_P.find(p => p.kode === String(d.kode || "").trim()), p = cleanP(d, old);
+  if (old){ Object.assign(old, p); return old; }
+  if (!p.kode) p.kode = String(Math.max(1000000, ...DEMO_P.map(x => +x.kode)) + 1);
+  DEMO_P.push(p); return p;
+}
+const DEMO_PUR = [], DEMO_EXP = [], RID = {}; let expSeq = 0;
+function nextNo(L, tgl){
+  const pre = tgl.slice(2).replace(/-/g, "");
+  return pre + String(Math.max(0, ...L.filter(x => x.no.startsWith(pre)).map(x => +x.no.slice(6))) + 1).padStart(4, "0");
+}
+/* Satu fungsi untuk penjualan dan pembelian; server menghitung ulang semua angka */
+function demoTx(kind, d){
+  const L = kind === "sales" ? DEMO_S : DEMO_PUR, party = kind === "sales" ? "konsumen" : "supplier";
+  if (d.requestId && RID[d.requestId]) return RID[d.requestId];
+  if (!Array.isArray(d.items) || !d.items.length) throw new Error("Keranjang kosong");
+  if (d.updateHpp && S.role !== "owner") throw new Error("Hanya owner yang boleh memperbarui HPP");
+  const tgl = /^\d{4}-\d{2}-\d{2}$/.test(d.tgl) ? d.tgl : isoD(new Date()), need = {};
+  const items = d.items.map(it => {
+    const p = DEMO_P.find(x => x.kode === it.kode); if (!p) throw new Error("Produk " + it.kode + " tidak ditemukan");
+    const qty = Math.floor(Number(it.qty)); if (!(qty > 0)) throw new Error("Qty tidak valid untuk " + p.nama);
+    const harga = num(it.harga), gross = harga * qty, dr = Math.min(gross, num(it.diskon_rp) + gross * Math.min(100, num(it.diskon_persen)) / 100);
+    need[p.kode] = (need[p.kode] || 0) + qty;
+    return {kode:p.kode, nama:p.nama, harga, qty, satuan:p.satuan || "Pcs", diskon_rp:Math.round(dr), subtotal:Math.round(gross - dr), cost:p.hpp};
+  });
+  if (kind === "sales") for (const k in need){ const p = DEMO_P.find(x => x.kode === k); if (!p.jasa && p.stok < need[k]) throw new Error("Stok " + p.nama + " tidak cukup (sisa " + p.stok + ")"); }
+  const subtotal = items.reduce((a, i) => a + i.subtotal, 0), diskon = Math.min(subtotal, Math.round(subtotal * Math.min(100, num(d.diskon_persen)) / 100 + num(d.diskon_rp)));
+  const th = Math.floor(num(d.tempo_hari)), tt = new Date(tgl + "T00:00:00"); tt.setDate(tt.getDate() + th);
+  const n = {no:nextNo(L, tgl), tgl, [party]:String(d[party] || (kind === "sales" ? "Umum" : "")).trim(), no_bukti:String(d.no_bukti || "").trim(), tempo_hari:th, tempo_tgl:th ? isoD(tt) : "",
+    diskon_persen:num(d.diskon_persen), diskon_rp:num(d.diskon_rp), subtotal, diskon, total:subtotal - diskon, keterangan:String(d.keterangan || "").trim(), kasir:S.user, batal:false,
+    hpp:items.reduce((a, i) => a + i.cost * i.qty, 0), items:items.map(({cost, ...r}) => r)};
+  items.forEach(i => { const p = DEMO_P.find(x => x.kode === i.kode); if (p.jasa) return; p.stok += kind === "sales" ? -i.qty : i.qty; if (kind === "purchase" && d.updateHpp) p.hpp = i.harga; });
+  L.push(n); if (d.requestId) RID[d.requestId] = n; return n;
+}
+function demoCancel(kind, d){
+  if (S.role !== "owner") throw new Error("Hanya owner yang boleh membatalkan nota");
+  if (!String(d.alasan || "").trim()) throw new Error("Alasan pembatalan wajib diisi");
+  const n = (kind === "sales" ? DEMO_S : DEMO_PUR).find(x => x.no === d.no);
+  if (!n) throw new Error("Nota tidak ditemukan"); if (n.batal) throw new Error("Nota sudah dibatalkan");
+  const prod = i => DEMO_P.find(p => p.kode === i.kode);
+  if (kind === "purchase") for (const i of n.items){ const p = prod(i); if (p && !p.jasa && p.stok < i.qty) throw new Error("Stok " + p.nama + " sudah terpakai, pembelian tidak bisa dibatalkan"); }
+  n.items.forEach(i => { const p = prod(i); if (p && !p.jasa) p.stok += kind === "sales" ? i.qty : -i.qty; });
+  n.batal = true; n.alasan = d.alasan; return true;
+}
+const DEMO_BK = [];
+const ownerOnly = () => { if (!S || S.role !== "owner") throw new Error("Hanya owner yang boleh mengakses fitur ini"); };
+const inR = (x, d) => (!d.dari || x.tgl >= d.dari) && (!d.sampai || x.tgl <= d.sampai);
+const stripBk = ({js, ...b}) => b;
+function makeBackup(nama){
+  const js = JSON.stringify({P:DEMO_P, S:DEMO_S, U:DEMO_PUR, E:DEMO_EXP, M:DEMO_M}), d = JSON.parse(js);
+  const b = {id:"bk" + Date.now().toString(36) + DEMO_BK.length, nama:nama + "_" + new Date().toISOString().slice(0, 16).replace(/[-:T]/g, ""), waktu:new Date().toISOString(), ukuran:js.length, url:"",
+    produk:d.P.length, nota_jual:d.S.length, nota_beli:d.U.length, biaya:d.E.length, js};
+  DEMO_BK.unshift(b); return b;
+}
+async function demoApi(action, data){
+  await wait(120);
+  if (action === "login"){
+    const u = DEMO_USERS[String(data.u || "").toLowerCase()];
+    if (!u || u.p !== data.p || u.aktif === false) throw new Error("Username atau password salah");
+    return {token:"demo", user:data.u.toLowerCase(), role:u.role, perms:u.perms};
+  }
+  if (action === "logout") return true;
+  if (action === "reportSales") return {rows:DEMO_S.filter(x => !x.batal && inR(x, data)).map(x => ({no:x.no, tgl:x.tgl, pihak:x.konsumen, total:x.total}))};
+  if (action === "reportPurchases") return {rows:DEMO_PUR.filter(x => !x.batal && inR(x, data)).map(x => ({no:x.no, tgl:x.tgl, pihak:x.supplier, total:x.total}))};
+  if (action === "reportExpenses") return {rows:DEMO_EXP.filter(x => inR(x, data))};
+  if (action === "reportProfit"){
+    ownerOnly(); const a = DEMO_S.filter(x => !x.batal && inR(x, data));
+    return {penjualan:a.reduce((t, x) => t + x.total, 0), hpp:a.reduce((t, x) => t + x.hpp, 0), biaya:DEMO_EXP.filter(x => inR(x, data)).reduce((t, x) => t + x.jumlah, 0)};
+  }
+  if (action === "reportStock"){ ownerOnly(); return {rows:DEMO_P.filter(p => !p.jasa).map(p => ({kode:p.kode, nama:p.nama, stok:p.stok, hpp:p.hpp, nilai:p.stok * p.hpp}))}; }
+  if (action === "backup"){ ownerOnly(); return stripBk(makeBackup("backup")); }
+  if (action === "listBackups"){ ownerOnly(); return DEMO_BK.slice(0, 10).map(stripBk); }
+  if (action === "deleteOldBackups"){ ownerOnly(); return DEMO_BK.splice(10).length; }
+  if (action === "restore"){
+    ownerOnly(); if (data.konfirmasi !== "RESTORE") throw new Error("Konfirmasi RESTORE tidak sesuai");
+    const b = DEMO_BK.find(x => x.id === data.id); if (!b) throw new Error("Backup tidak ditemukan");
+    makeBackup("auto-sebelum-restore");   // pengaman sebelum menimpa data
+    const d = JSON.parse(b.js), put = (A, B) => { A.length = 0; A.push(...B); };
+    put(DEMO_P, d.P); put(DEMO_S, d.S); put(DEMO_PUR, d.U); put(DEMO_EXP, d.E);
+    Object.keys(DEMO_M).forEach(k => DEMO_M[k] = d.M[k] || []); Object.keys(RID).forEach(k => delete RID[k]); return true;
+  }
+  if (action === "getUsers"){ ownerOnly(); return Object.entries(DEMO_USERS).map(([username, u]) => ({username, role:u.role, perms:u.perms, aktif:u.aktif !== false})); }
+  if (action === "saveUser"){
+    ownerOnly(); const un = String(data.username || "").trim().toLowerCase(), old = DEMO_USERS[un], pw = String(data.password || "");
+    if (!/^[a-z0-9_]{3,20}$/.test(un)) throw new Error("Username 3-20 karakter: huruf kecil, angka, garis bawah");
+    if (data.passwordOnly){ if (!old) throw new Error("Akun tidak ditemukan"); if (pw.length < 6) throw new Error("Password minimal 6 karakter"); old.p = pw; return true; }
+    if ((!old || pw) && pw.length < 6) throw new Error("Password minimal 6 karakter");
+    const role = data.role === "owner" ? "owner" : "admin";
+    if (un === "owner" && (role !== "owner" || data.aktif === false)) throw new Error("Owner utama tidak boleh diubah rolenya atau dinonaktifkan");
+    const ok = ["sales", "purchase", "expense", "product", "search", "report", "master"];
+    DEMO_USERS[un] = {p:pw || old.p, role, perms:role === "owner" ? "*" : (Array.isArray(data.perms) ? data.perms.filter(m => ok.includes(m)) : []), aktif:data.aktif !== false};
+    return true;
+  }
+  if (action === "deleteUser"){
+    ownerOnly(); const un = String(data.username || "").toLowerCase();
+    if (un === "owner") throw new Error("Owner utama tidak boleh dihapus"); if (un === S.user) throw new Error("Tidak bisa menghapus akun yang sedang dipakai");
+    if (!DEMO_USERS[un]) throw new Error("Akun tidak ditemukan"); delete DEMO_USERS[un]; return true;
+  }
+  if (action === "saveSale") return demoTx("sales", data);
+  if (action === "savePurchase") return demoTx("purchase", data);
+  if (action === "cancelSale") return demoCancel("sales", data);
+  if (action === "cancelPurchase") return demoCancel("purchase", data);
+  if (action === "getSales" || action === "getPurchases")
+    return (action === "getSales" ? DEMO_S : DEMO_PUR).filter(x => x.tgl === data.tgl).map(x => ({no:x.no, tgl:x.tgl, pihak:x.konsumen ?? x.supplier, total:x.total, batal:!!x.batal}));
+  if (action === "getSale" || action === "getPurchase"){
+    const n = (action === "getSale" ? DEMO_S : DEMO_PUR).find(x => x.no === data.no); if (!n) throw new Error("Nota tidak ditemukan"); return {kasir:"-", diskon:0, ...n};
+  }
+  if (action === "getExpenses") return DEMO_EXP.filter(x => (!data.dari || x.tgl >= data.dari) && (!data.sampai || x.tgl <= data.sampai)).sort((a, b) => b.tgl.localeCompare(a.tgl));
+  if (action === "saveExpense"){
+    const j = num(data.jumlah), k = String(data.kategori || "").trim(), ket = String(data.keterangan || "").trim();
+    if (!k) throw new Error("Kategori wajib diisi"); if (!(j > 0)) throw new Error("Jumlah harus lebih dari 0");
+    const tgl = /^\d{4}-\d{2}-\d{2}$/.test(data.tgl) ? data.tgl : isoD(new Date()), x = data.nomor && DEMO_EXP.find(e => e.nomor === data.nomor);
+    if (x) Object.assign(x, {tgl, kategori:k, keterangan:ket, jumlah:j}); else DEMO_EXP.push({nomor:"B" + String(++expSeq).padStart(5, "0"), tgl, kategori:k, keterangan:ket, jumlah:j, user:S.user});
+    return true;
+  }
+  if (action === "deleteExpense"){ const i = DEMO_EXP.findIndex(e => e.nomor === data.nomor); if (i < 0) throw new Error("Biaya tidak ditemukan"); DEMO_EXP.splice(i, 1); return true; }
+  if (action === "saveProduct") return {...upsertP(data)};
+  if (action === "deleteProduct"){ const i = DEMO_P.findIndex(p => p.kode === data.kode); if (i < 0) throw new Error("Produk tidak ditemukan"); DEMO_P.splice(i, 1); return true; }
+  if (action === "adjustStock"){
+    const p = DEMO_P.find(x => x.kode === data.kode), d = Math.trunc(Number(data.delta));
+    if (!p) throw new Error("Produk tidak ditemukan");
+    if (!String(data.alasan || "").trim()) throw new Error("Alasan wajib diisi");
+    if (!d) throw new Error("Perubahan stok tidak boleh 0");
+    if (p.stok + d < 0) throw new Error("Stok tidak boleh negatif");
+    p.stok += d; return {stok:p.stok};
+  }
+  if (action === "importProducts"){
+    const rows = data.rows || [], gagal = []; let ok = 0;
+    if (rows.length > 500) throw new Error("Maksimal 500 baris per permintaan");
+    rows.forEach((r, i) => { try { upsertP(r); ok++; } catch(e){ gagal.push({baris:(data.offset || 0) + i + 1, error:e.message}); } });
+    return {ok, gagal};
+  }
+  if (action === "getMaster") return DEMO_M[data.t] || [];
+  if (action === "saveMaster"){
+    const L = DEMO_M[data.t], n = String(data.nama || "").trim();
+    if (!L || !n) throw new Error("Nama wajib diisi");
+    if (L.some(x => x.nama.toLowerCase() === n.toLowerCase() && x.id != data.id)) throw new Error("Nama sudah ada");
+    if (data.id) L.find(x => x.id == data.id).nama = n; else L.push({id:Math.max(0, ...L.map(x => x.id)) + 1, nama:n});
+    return true;
+  }
+  if (action === "deleteMaster"){
+    const L = DEMO_M[data.t], x = L.find(y => y.id == data.id), f = {kategori:"kategori", tipe:"tipe", satuan:"satuan", supplier:"supplier"}[data.t];
+    const used = f ? DEMO_P.some(p => p[f] === x.nama) : data.t === "konsumen" && DEMO_S.some(z => z.konsumen === x.nama);
+    if (used) throw new Error("“" + x.nama + "” masih dipakai, tidak bisa dihapus");
+    DEMO_M[data.t] = L.filter(y => y !== x); return true;
+  }
+  if (action === "getProducts") return DEMO_P.map(p => S && S.role === "owner" ? p : {...p, hpp:undefined});
+  if (action === "dashboard"){
+    const today = isoD(new Date()), byDay = {}; for (let i = 6; i >= 0; i--){ const dd = new Date(); dd.setDate(dd.getDate() - i); byDay[isoD(dd)] = 0; }
+    DEMO_S.filter(x => !x.batal).forEach(x => byDay[x.tgl] = (byDay[x.tgl] || 0) + x.total);
+    const t = DEMO_S.filter(x => x.tgl === today && !x.batal), sales = t.reduce((a,x) => a + x.total, 0), hpp = t.reduce((a,x) => a + x.hpp, 0);
+    const purch = DEMO_PUR.filter(x => x.tgl === today && !x.batal).reduce((a, x) => a + x.total, 0), exp = DEMO_EXP.filter(x => x.tgl === today).reduce((a, x) => a + x.jumlah, 0), cnt = {};
+    DEMO_S.forEach(x => x.items.forEach(i => cnt[i.nama] = (cnt[i.nama] || 0) + i.qty));
+    return {
+      sales, purch, exp, profit: sales - hpp - exp,
+      low: DEMO_P.filter(p => !p.jasa && p.stok <= 3).length,
+      week: Object.keys(byDay).sort().map(k => ({tgl:k, total:byDay[k]})),
+      recent: DEMO_S.slice(-5).reverse().map(({no,tgl,konsumen,total}) => ({no,tgl,konsumen,total})),
+      top: Object.entries(cnt).sort((a,b) => b[1] - a[1]).slice(0,5).map(([nama,qty]) => ({nama,qty}))
+    };
+  }
+  throw new Error("Fitur demo untuk “" + action + "” belum tersedia pada tahap ini");
+}
+
+/* ===== Lapisan API ===== */
+let S = null; // sesi: {token,user,role,perms}
+async function api(action, data = {}){
+  loading(true);
+  try {
+    if (DEMO) return await demoApi(action, data);
+    const read = /^(get|report|dashboard)/.test(action), max = read ? 2 : 0;
+    for (let t = 0; ; t++){
+      const ac = new AbortController(), to = setTimeout(() => ac.abort(), 25000);
+      try {
+        const res = await fetch(CFG.GAS_URL, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify({action, token:S && S.token, data}), signal:ac.signal});
+        let j; try { j = await res.json(); } catch(e){ const x = new Error("URL Web App salah atau belum di-deploy untuk Anyone"); x.fatal = true; throw x; }
+        if (!j.ok){
+          const x = new Error(j.error || "Terjadi kesalahan"); x.fatal = true;
+          if (/token|sesi/i.test(x.message) && action !== "login"){ expire(); }
+          throw x;
+        }
+        return j.data;
+      } catch(e){
+        if (e.fatal) throw e;
+        if (t >= max){ const x = new Error(e.name === "AbortError" ? "Waktu habis, periksa koneksi Anda." : "Tidak dapat terhubung ke server. Periksa koneksi internet Anda."); x.net = true; throw x; }
+        await wait(600);
+      } finally { clearTimeout(to); }
+    }
+  } finally { loading(false); }
+}
+function expire(){ S = null; ss.del("sahabat_sess"); toast("Sesi berakhir, silakan masuk lagi", "warn"); showLogin(); }
+
+/* ===== Hak akses ===== */
+const can = id => !!S && (["utility", "account"].includes(id) ? S.role === "owner" : (S.perms === "*" || S.role === "owner" || id === "dashboard" || (S.perms || []).includes(id)));
+const isOwner = () => S && S.role === "owner";
+
+async function serverDlg(){
+  const v = await formDlg("Pengaturan server", [{id:"u", l:"URL Web App Google Apps Script (berakhiran /exec). Kosongkan untuk mode demo.", v:CFG.GAS_URL}], "Simpan & uji");
+  if (!v) return;
+  try {
+    if (!v.u){ localStorage.removeItem("sahabat_gas"); location.reload(); return; }
+    if (!/^https:\/\/script\.google\.com\/.+\/exec$/.test(v.u)) return toast("URL harus berawalan https://script.google.com dan berakhiran /exec", "err", 6000);
+    const j = await (await fetch(v.u)).json(); if (!j.ok) throw new Error("x");
+    localStorage.setItem("sahabat_gas", v.u); toast("Terhubung ke server. Memuat ulang…", "ok"); setTimeout(() => location.reload(), 800);
+  } catch(e){ toast("Server tidak merespons. Pastikan akses Web App = Anyone dan URL berakhiran /exec.", "err", 7000); }
+}
+/* ===== Login ===== */
+function showLogin(msg){
+  $("#root").innerHTML = `<div class="lg"><form class="lgc" id="lf" autocomplete="on">
+    <div class="logo"><img class="lgi" src="${LOGO}" alt="Logo SAHABAT"><div><b>SAHABAT</b><small>Accessories &amp; Service</small></div></div>
+    <div class="fld"><label for="u">Username</label><input class="in" id="u" autocomplete="username" required></div>
+    <div class="fld"><label for="p">Password</label><div class="pw"><input class="in" id="p" type="password" autocomplete="current-password" required><button type="button" id="eye" aria-label="Tampilkan password">👁️</button></div></div>
+    <div id="le" class="err" style="display:none" role="alert"></div>
+    <button class="btn pri" id="lb" style="width:100%;margin-top:20px">Masuk</button>
+    ${DEMO ? `<div class="hint"><span class="badge b-or">MODE DEMO</span> Coba owner / owner123 atau admin / admin123</div>` : ""}<div class="hint"><button type="button" class="btn ghost" id="srv">⚙️ Pengaturan server</button></div></form></div>`;
+  const err = m => { const e = $("#le"); e.textContent = m; e.style.display = m ? "block" : "none"; };
+  if (msg) err(msg);
+  $("#srv").onclick = serverDlg;
+  $("#eye").onclick = () => { const p = $("#p"); p.type = p.type === "password" ? "text" : "password"; };
+  $("#lf").onsubmit = async ev => {
+    ev.preventDefault(); err(""); const b = $("#lb"); b.disabled = true; b.textContent = "Memeriksa…";
+    try {
+      S = await api("login", {u:$("#u").value.trim(), p:$("#p").value});
+      ss.set("sahabat_sess", JSON.stringify(S)); showApp();
+    } catch(e){ err(e.message); b.disabled = false; b.textContent = "Masuk"; }
+  };
+  $("#u").focus();
+}
+async function logout(){
+  if (!await confirmDlg("Keluar dari aplikasi?", "Keluar")) return;
+  try { await api("logout"); } catch(e){}
+  S = null; ss.del("sahabat_sess"); cache = []; showLogin();
+}
+
+/* ===== Cache produk + pencarian global ===== */
+let cache = [], cacheTimer = null;
+async function loadProducts(quiet){
+  try { cache = await api("getProducts", {}); if (!quiet) toast("Daftar barang dimuat ulang", "ok", 1800); }
+  catch(e){ if (!quiet) toast(e.message, "err"); }
+}
+const norm = s => String(s || "").toLowerCase().replace(/\s+/g, " ").trim();
+function findProducts(q){
+  const w = norm(q).split(" ").filter(Boolean);
+  return w.length ? cache.filter(p => { const h = norm(p.kode + " " + p.nama + " " + p.kategori); return w.every(x => h.includes(x)); }) : [];
+}
+function stockBadge(p){
+  if (p.jasa) return `<span class="badge b-bl">Jasa</span>`;
+  return p.stok <= 0 ? `<span class="badge b-rd">Habis</span>` : p.stok <= 3 ? `<span class="badge b-yl">Sisa ${p.stok}</span>` : `<span class="badge b-gr">Stok ${p.stok}</span>`;
+}
+let sdT;
+function bindSearch(){
+  const i = $("#gs"), d = $("#dd");
+  i.oninput = () => { clearTimeout(sdT); sdT = setTimeout(() => {
+    const r = findProducts(i.value);
+    if (!i.value.trim()){ d.style.display = "none"; return; }
+    d.innerHTML = (r.slice(0,6).map(p => `<button class="it" data-k="${esc(p.kode)}"><span><b>${esc(p.nama)}</b><br><small style="color:var(--mu)">${esc(p.kategori)}</small></span><span style="text-align:right"><b>${rp(p.harga)}</b><br>${stockBadge(p)}</span></button>`).join("")
+      || `<div style="padding:14px;color:var(--mu)">Barang tidak ditemukan</div>`)
+      + (r.length > 6 ? `<div style="padding:8px 14px;color:var(--mu)">${r.length} hasil, buka Pencarian untuk melihat semuanya</div>` : "");
+    d.style.display = "block"; }, 150); };
+  d.onclick = e => { const b = e.target.closest(".it"); if (b){ d.style.display = "none"; openDetail(b.dataset.k); } };
+  i.onkeydown = e => { if (e.key === "Escape"){ d.style.display = "none"; i.blur(); } };
+  document.addEventListener("click", e => { if (!e.target.closest(".sr")) d.style.display = "none"; });
+}
+
+/* ===== Kerangka aplikasi ===== */
+function showApp(){
+  const menus = MENUS.filter(m => can(m[0]));
+  $("#root").innerHTML = `
+  <aside class="sb" id="sb"><div class="logo"><img class="lgi" src="${LOGO}" alt="Logo SAHABAT"><div><b>SAHABAT</b><small>POS 2026</small></div></div>
+    <nav>${menus.map(m => `<a href="#/${m[0]}" data-m="${m[0]}"><span>${m[2]}</span>${esc(m[1])}<span class="k">${m[3]}</span></a>`).join("")}</nav>
+    <button class="btn ghost" id="th" style="margin-top:auto;color:#cdd6e8;border-color:#26324f">🌓 Ganti tema</button></aside>
+  <div class="mn"><header class="tb"><button class="hb" id="hb" aria-label="Menu">☰</button><h1 id="pt">Dashboard</h1>
+    <div class="sr"><input class="in" id="gs" placeholder="Cari barang… (tekan /)" autocomplete="off" aria-label="Cari barang"><div id="dd"></div></div>
+    <div class="usr">${DEMO ? `<span class="badge b-or">MODE DEMO</span>` : `<span class="badge b-gr">ONLINE</span>`}
+      <div><b>${esc(S.user)}</b><small>${S.role === "owner" ? "Owner" : "Admin"}</small></div><button class="btn" id="lo">Keluar</button></div></header>
+    <main class="ct" id="ct"></main>
+    <footer class="ft"><span>SAHABAT POS v${esc(VERSION)}</span><span>© 2026 SAHABAT Accessories &amp; Service</span></footer></div>
+  <nav class="bn">${[["dashboard","🏠","Beranda"],["search","🔎","Cari"],["sales","🛒","Jual"],["report","📈","Laporan"]].filter(b => can(b[0])).map(b => `<button data-m="${b[0]}"><span>${b[1]}</span>${b[2]}</button>`).join("")}</nav>`;
+  $("#lo").onclick = logout; $("#th").onclick = toggleTheme;
+  $("#hb").onclick = () => $("#sb").classList.toggle("open");
+  document.querySelectorAll(".bn button").forEach(b => b.onclick = () => go(b.dataset.m));
+  bindSearch(); loadProducts(true);
+  clearInterval(cacheTimer); cacheTimer = setInterval(() => S && loadProducts(true), 300000);
+  route();
+}
+
+/* ===== Router ===== */
+function go(id){ location.hash = "#/" + id; }
+function route(){
+  if (!S) return;
+  let id = (location.hash.match(/^#\/(\w+)/) || [])[1] || "dashboard";
+  if (!MENUS.some(m => m[0] === id)) id = "dashboard";
+  if (!can(id)){ toast("Anda tidak punya akses ke menu ini", "err"); id = "dashboard"; if (location.hash !== "#/dashboard") location.hash = "#/dashboard"; }
+  const m = MENUS.find(x => x[0] === id);
+  $("#pt").textContent = m[1]; document.title = m[1] + " - SAHABAT POS";
+  document.querySelectorAll("[data-m]").forEach(a => a.classList.toggle("on", a.dataset.m === id));
+  $("#sb").classList.remove("open");
+  (PAGES[id] || placeholder)(id, m);
+}
+window.addEventListener("hashchange", route);
+
+/* ===== Halaman ===== */
+function placeholder(id, m){
+  $("#ct").innerHTML = `<div class="card ph"><div class="e">${m[2]}</div><h2>${esc(m[1])}</h2><p style="color:var(--mu)">Halaman ini dibangun pada Tahap ${STAGE[id]}. Ketik LANJUT di chat untuk meneruskan.</p></div>`;
+}
+/* ===== Helper halaman data ===== */
+async function act(action, data, okMsg){
+  try { const r = await api(action, data); if (okMsg) toast(okMsg, "ok"); return r; }
+  catch(e){
+    const read = /^(get|report|dashboard)/.test(action), tx = /^save(Sale|Purchase)$/.test(action);
+    toast(e.message + (e.net && tx ? " Tekan Simpan lagi, nota tidak akan ganda." : ""), "err", e.net ? 8000 : 3500, e.net && read ? () => route() : null);
+    return null;
+  }
+}
+function formDlg(title, fields, okText = "Simpan"){
+  return new Promise(res => {
+    const o = document.createElement("div"); o.className = "ov";
+    o.innerHTML = `<div class="dlg w" role="dialog" aria-modal="true"><h3 style="margin:0 0 12px">${esc(title)}</h3>${fields.map(f => `<div class="fld" style="margin-top:10px"><label>${esc(f.l)}</label><input class="in" data-f="${f.id}" type="${f.t || "text"}" value="${esc(f.v ?? "")}"></div>`).join("")}<div class="row"><button class="btn" data-v="0">Batal</button><button class="btn pri" data-v="1">${esc(okText)}</button></div></div>`;
+    o.onclick = e => {
+      const b = e.target.closest("button"); if (!b && e.target !== o) return;
+      const v = {}; o.querySelectorAll("[data-f]").forEach(i => v[i.dataset.f] = i.value.trim());
+      o.remove(); res(b && b.dataset.v === "1" ? v : null);
+    };
+    document.body.appendChild(o); $("input", o).focus();
+  });
+}
+
+/* ===== Pencarian / Cek Barang ===== */
+const SF = {q:"", k:"", f:"", n:60};
+function filtered(){
+  const w = norm(SF.q).split(" ").filter(Boolean);
+  return cache.filter(p => (!SF.k || p.kategori === SF.k)
+    && (SF.f === "low" ? (!p.jasa && p.stok <= 3) : SF.f === "out" ? (!p.jasa && p.stok <= 0) : true)
+    && w.every(x => norm(p.kode + " " + p.nama + " " + p.kategori + " " + (p.tipe || "")).includes(x)));
+}
+const PM_LABEL = {umum:"Harga Umum", toko:"Harga Toko", pasang:"Sekalian Pasang"};
+const PASANG = {kali:2, tambah:75000};   // harga sekalian pasang = harga umum x 2 + Rp 75.000
+const pmNote = m => m === "umum" ? "Harga umum = kolom Harga jual di menu Produk." : m === "toko" ? "Harga toko = kolom Harga A di menu Produk." : "Sekalian pasang = harga umum × " + PASANG.kali + " + " + rp(PASANG.tambah) + ".";
+let PM = "umum"; const SEL = new Set();
+const priceOf = (p, m = PM) => m === "umum" ? (p.harga || 0) : m === "toko" ? (p.harga_a || 0) : (p.harga > 0 ? p.harga * PASANG.kali + PASANG.tambah : 0);
+async function copyText(t){
+  try { await navigator.clipboard.writeText(t); return true; } catch(e){}
+  try { const a = document.createElement("textarea"); a.value = t; a.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(a); a.select(); const ok = document.execCommand("copy"); a.remove(); return ok; } catch(e){ return false; }
+}
+function textDlg(t){
+  const o = document.createElement("div"); o.className = "ov";
+  o.innerHTML = `<div class="dlg w"><h3 style="margin:0 0 8px">Salin manual</h3><p style="color:var(--mu);margin:0 0 8px">Browser memblokir salin otomatis. Tekan lama pada teks, lalu pilih Salin.</p><textarea id="tx_c" readonly rows="8" style="width:100%;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:inherit;font:inherit"></textarea><div class="row"><button class="btn pri">Tutup</button></div></div>`;
+  o.onclick = e => { if (e.target === o || e.target.closest("button")) o.remove(); };
+  document.body.appendChild(o); const a = $("#tx_c", o); a.value = t; a.focus(); a.select();
+}
+async function copySelected(){
+  const lines = cache.filter(p => SEL.has(p.kode)).map(p => { const v = priceOf(p); return p.nama + " - " + (v > 0 ? rp(v) : "harga belum diisi"); });
+  if (!lines.length) return;
+  const text = lines.join("\n");
+  if (await copyText(text)) toast(lines.length + " barang disalin (" + PM_LABEL[PM] + ")", "ok"); else textDlg(text);
+}
+async function renderSearch(){
+  if (!cache.length) await loadProducts(true);
+  const cats = [...new Set(cache.map(p => p.kategori))].sort();
+  const chips = [["", "Semua"], ...cats.map(c => ["k:" + c, c]), ["low", "Stok Menipis"], ["out", "Stok Habis"]];
+  const on = v => v === "" ? (!SF.k && !SF.f) : v.startsWith("k:") ? SF.k === v.slice(2) : SF.f === v;
+  $("#ct").innerHTML = `<div class="card"><div class="chips" id="pm" style="margin-top:0">${Object.entries(PM_LABEL).map(([k, l]) => `<button class="chip${k === PM ? " on" : ""}" data-m="${k}">${l}</button>`).join("")}</div>
+    <p style="margin:8px 0 0;color:var(--mu);font-size:12.5px">${esc(pmNote(PM))}</p>
+    <div style="display:flex;gap:8px;margin-top:12px"><input class="in" id="sq" placeholder="Ketik kode, nama, atau kategori…" value="${esc(SF.q)}" autocomplete="off"><button class="btn" id="sc" aria-label="Scan barcode">📷</button><button class="btn" id="sl" aria-label="Muat ulang">🔄</button></div>
+    <div class="chips" id="cf">${chips.map(([v, l]) => `<button class="chip${on(v) ? " on" : ""}" data-c="${esc(v)}">${esc(l)}</button>`).join("")}</div></div>
+    <p id="cn" style="color:var(--mu)"></p><div class="card" style="padding:0"><div class="tw"><table id="ptb"></table></div></div><div class="row" id="mo" style="justify-content:center"></div><div class="selbar" id="selbar"></div><div style="height:70px"></div>`;
+  let t; $("#sq").oninput = e => { clearTimeout(t); t = setTimeout(() => { SF.q = e.target.value; SF.n = 60; drawList(); }, 150); };
+  $("#sc").onclick = scanBarcode;
+  $("#sl").onclick = async () => { await loadProducts(); renderSearch(); };
+  $("#pm").onclick = e => { const b = e.target.closest("[data-m]"); if (b){ PM = b.dataset.m; renderSearch(); } };
+  $("#cf").onclick = e => {
+    const b = e.target.closest("[data-c]"); if (!b) return; const v = b.dataset.c; SF.n = 60;
+    if (v === "") SF.k = SF.f = ""; else if (v.startsWith("k:")){ SF.k = v.slice(2); SF.f = ""; } else { SF.f = SF.f === v ? "" : v; SF.k = ""; }
+    renderSearch();
+  };
+  $("#ptb").onclick = e => {
+    const t = e.target;
+    if (t.id === "ca"){ filtered().slice(0, SF.n).forEach(p => t.checked ? SEL.add(p.kode) : SEL.delete(p.kode)); return drawList(); }
+    const tr = t.closest("tr[data-k]"); if (!tr) return;
+    if (t.closest("td.ck")){ const k = tr.dataset.k; SEL.has(k) ? SEL.delete(k) : SEL.add(k); return drawList(); }
+    openDetail(tr.dataset.k);
+  };
+  $("#mo").onclick = () => { SF.n += 60; drawList(); };
+  $("#selbar").onclick = e => { const b = e.target.closest("button"); if (!b) return; if (b.id === "sy") copySelected(); else { SEL.clear(); drawList(); } };
+  drawList();
+}
+function drawList(){
+  const r = filtered(), s = r.slice(0, SF.n), all = s.length > 0 && s.every(p => SEL.has(p.kode));
+  $("#cn").textContent = r.length + " barang ditemukan";
+  $("#ptb").innerHTML = `<thead><tr><th class="ck"><input type="checkbox" id="ca" aria-label="Pilih semua yang tampil" ${all ? "checked" : ""}></th><th>Barang</th><th>Kategori</th><th class="n">${esc(PM_LABEL[PM])}</th><th class="n">Stok</th></tr></thead><tbody>`
+    + (s.map(p => { const v = priceOf(p); return `<tr class="pr" data-k="${esc(p.kode)}"><td class="ck"><input type="checkbox" ${SEL.has(p.kode) ? "checked" : ""} aria-label="Pilih ${esc(p.nama)}"></td><td style="white-space:normal;min-width:180px"><b>${esc(p.nama)}</b><br><small style="color:var(--mu)">${esc(p.kode)}</small></td><td>${esc(p.kategori)}</td><td class="n">${v > 0 ? `<b>${rp(v)}</b>` : `<span style="color:var(--mu)">belum diisi</span>`}</td><td class="n">${stockBadge(p)}</td></tr>`; }).join("")
+      || `<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--mu)">${cache.length ? "Barang tidak ditemukan" : "Belum ada barang. Tambahkan lewat menu Produk atau Impor CSV."}</td></tr>`) + `</tbody>`;
+  $("#mo").innerHTML = r.length > SF.n ? `<button class="btn" id="mb">Muat lebih banyak (${r.length - SF.n})</button>` : "";
+  const b = $("#selbar"); b.style.display = SEL.size ? "flex" : "none";
+  b.innerHTML = `<b>${SEL.size} dipilih</b><button class="btn pri" id="sy">Salin ${esc(PM_LABEL[PM])}</button><button class="btn" id="sx">Kosongkan</button>`;
+}
+function openDetail(k){
+  const p = cache.find(x => x.kode === k); if (!p) return;
+  const row = (l, v) => `<tr><td style="color:var(--mu)">${l}</td><td class="n"><b>${v}</b></td></tr>`;
+  const o = document.createElement("div"); o.className = "ov";
+  o.innerHTML = `<div class="dlg w"><h3 style="margin:0">${esc(p.nama)}</h3><p>${stockBadge(p)}</p><table>${row("Kode", esc(p.kode)) + row("Kategori", esc(p.kategori)) + row("Tipe", esc(p.tipe || "-")) + row("Stok", p.jasa ? "Jasa" : p.stok + " " + esc(p.satuan || "Pcs")) + row("Harga umum", rp(p.harga)) + row("Harga toko", p.harga_a ? rp(p.harga_a) : "-") + row("Sekalian pasang", rp(priceOf(p, "pasang"))) + ["b","c","d"].map(x => row("Harga " + x.toUpperCase(), p["harga_" + x] ? rp(p["harga_" + x]) : "-")).join("") + row("Supplier", esc(p.supplier || "-")) + (isOwner() ? row("HPP", rp(p.hpp)) + row("Laba", rp(p.harga - p.hpp)) : "")}</table><div class="row"><button class="btn" data-v="0">Tutup</button><button class="btn pri" data-v="1">Tambah ke nota</button></div></div>`;
+  o.onclick = e => {
+    const b = e.target.closest("button"); if (!b && e.target !== o) return; o.remove();
+    if (b && b.dataset.v === "1"){ (window.CART = window.CART || []).push({kode:p.kode, nama:p.nama, harga:p.harga, qty:1}); toast("Ditambahkan ke nota (" + CART.length + " item)", "ok", 6000, can("sales") ? () => go("sales") : null, "Buka nota"); }
+  };
+  document.body.appendChild(o);
+}
+async function scanBarcode(){
+  if (!("BarcodeDetector" in window) || !navigator.mediaDevices){ toast("Scan barcode belum didukung di browser ini", "warn"); return; }
+  let st; try { st = await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}}); } catch(e){ toast("Kamera tidak bisa diakses", "err"); return; }
+  const o = document.createElement("div"); o.className = "ov";
+  o.innerHTML = `<div class="dlg w"><video autoplay playsinline style="width:100%;border-radius:10px"></video><div class="row"><button class="btn">Tutup</button></div></div>`;
+  document.body.appendChild(o); const v = $("video", o); v.srcObject = st;
+  const det = new BarcodeDetector(), stop = () => { st.getTracks().forEach(t => t.stop()); o.remove(); clearInterval(iv); };
+  const iv = setInterval(async () => { try { const r = await det.detect(v); if (r[0]){ stop(); SF.q = r[0].rawValue; SF.k = SF.f = ""; go("search"); renderSearch(); } } catch(e){} }, 400);
+  $("button", o).onclick = stop;
+}
+
+/* ===== Produk ===== */
+const PCOLS = ["kode","nama","kategori","tipe","hpp","harga","harga_a","harga_b","harga_c","harga_d","harga_min","stok","satuan","supplier","jasa"];
+const PF = [["kode","Kode",""],["nama","Produk",""],["kategori","Kategori","kategori"],["tipe","Tipe","tipe"],["hpp","HPP","n",1],["margin","Margin %","n",1],["laba","Laba","n",1],["harga","Harga jual (umum)","n"],["harga_a","Harga A (toko)","n"],["harga_b","Harga B","n"],["harga_c","Harga C","n"],["harga_d","Harga D","n"],["harga_min","Harga minimum","n"],["stok","Stok","n"],["satuan","Satuan","satuan"],["supplier","Supplier","supplier"]];
+const PT = {s:"nama", d:1, p:1, q:""};
+let CUR = "";
+const fv = k => $("#f_" + k);
+function nextKode(){ return String(Math.max(1000000, ...cache.map(x => +x.kode || 0)) + 1); }
+function fillForm(p){
+  CUR = p ? p.kode : "";
+  PF.forEach(([k]) => { const e = fv(k); if (e) e.value = p ? (p[k] ?? "") : ""; });
+  fv("jasa").value = p && p.jasa ? "1" : "0";
+  if (!p) fv("kode").value = nextKode() + " (otomatis)";
+  calc("hpp");
+}
+function calc(from){
+  if (!isOwner()) return;
+  const h = +fv("hpp").value || 0;
+  if (from === "margin") fv("harga").value = Math.round(h * (1 + (+fv("margin").value || 0) / 100));
+  const hj = +fv("harga").value || 0;
+  fv("laba").value = hj - h;
+  if (from !== "margin") fv("margin").value = h ? Math.round((hj - h) / h * 1000) / 10 : 0;
+}
+function getForm(){ const o = {}; PF.forEach(([k]) => { const e = fv(k); if (e) o[k] = e.value; }); o.jasa = fv("jasa").value; o.kode = CUR; return o; }
+function drawPT(){
+  const w = norm(PT.q).split(" ").filter(Boolean);
+  const r = cache.filter(p => w.every(x => norm(p.kode + " " + p.nama + " " + p.kategori).includes(x)));
+  r.sort((a, b) => (a[PT.s] > b[PT.s] ? 1 : a[PT.s] < b[PT.s] ? -1 : 0) * PT.d);
+  const pages = Math.max(1, Math.ceil(r.length / 15)); PT.p = Math.min(PT.p, pages);
+  const cols = [["kode","Kode"],["nama","Produk"],["kategori","Kategori"], ...(isOwner() ? [["hpp","HPP"]] : []), ["harga","Harga"],["stok","Stok"]];
+  $("#pt2").innerHTML = `<table><thead><tr>${cols.map(c => `<th class="s${["hpp","harga","stok"].includes(c[0]) ? " n" : ""}" data-s="${c[0]}">${c[1]}${PT.s === c[0] ? (PT.d > 0 ? " ▲" : " ▼") : ""}</th>`).join("")}<th></th></tr></thead><tbody>`
+    + r.slice((PT.p - 1) * 15, PT.p * 15).map(p => `<tr><td>${esc(p.kode)}</td><td>${esc(p.nama)}</td><td>${esc(p.kategori)}</td>${isOwner() ? `<td class="n">${rp(p.hpp)}</td>` : ""}<td class="n">${rp(p.harga)}</td><td class="n">${p.jasa ? "Jasa" : p.stok}</td><td><button class="btn" data-e="${esc(p.kode)}">Ganti</button> <button class="btn" data-a="${esc(p.kode)}">Stok</button></td></tr>`).join("") + `</tbody></table>`;
+  $("#pn").innerHTML = `<button class="btn" id="pp" ${PT.p <= 1 ? "disabled" : ""}>‹</button><span>Halaman ${PT.p} dari ${pages} (${r.length} barang)</span><button class="btn" id="px" ${PT.p >= pages ? "disabled" : ""}>›</button>`;
+}
+function parseCSV(t){
+  return t.split(/\r?\n/).filter(l => l.trim()).map(l => { const c = []; let s = "", q = false;
+    for (const ch of l){ if (ch === '"') q = !q; else if (ch === "," && !q){ c.push(s); s = ""; } else s += ch; } c.push(s); return c; });
+}
+async function importCSV(file){
+  const rows = parseCSV(await file.text());
+  if (rows.length && rows[0][0].trim().toLowerCase() === "kode") rows.shift();
+  const objs = rows.map(r => Object.fromEntries(PCOLS.map((c, i) => [c, (r[i] ?? "").trim()])));
+  let ok = 0; const bad = [];
+  for (let i = 0; i < objs.length; i += 500){
+    const r = await act("importProducts", {rows:objs.slice(i, i + 500), offset:i}); if (!r) break;
+    ok += r.ok; bad.push(...r.gagal);
+  }
+  await loadProducts(true); renderProduct();
+  await confirmDlg(`Impor selesai: ${ok} berhasil, ${bad.length} gagal.` + bad.slice(0, 5).map(b => ` Baris ${b.baris}: ${b.error}.`).join(""), "Tutup");
+}
+function exportCSV(){
+  const q = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+  const csv = [PCOLS.join(",")].concat(cache.map(p => PCOLS.map(c => q(c === "jasa" ? (p.jasa ? 1 : 0) : p[c])).join(","))).join("\n");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], {type:"text/csv"})); a.download = "produk.csv"; a.click();
+}
+async function renderProduct(){
+  if (!cache.length) await loadProducts(true);
+  const T = ["kategori","tipe","satuan","supplier"], R = await Promise.all(T.map(t => act("getMaster", {t})));
+  const dl = T.map((t, i) => `<datalist id="dl_${t}">${(R[i] || []).map(x => `<option value="${esc(x.nama)}">`).join("")}</datalist>`).join("");
+  $("#ct").innerHTML = `<div class="card"><div class="fg">${PF.filter(f => !f[3] || isOwner()).map(f => `<div><label for="f_${f[0]}">${f[1]}</label><input class="in" id="f_${f[0]}" ${f[2] === "n" ? 'type="number" min="0" step="any" inputmode="decimal"' : ""} ${f[2] && f[2] !== "n" ? `list="dl_${f[2]}"` : ""} ${["kode","laba"].includes(f[0]) ? "readonly" : ""}></div>`).join("")}<div><label for="f_jasa">Jasa service</label><select class="in" id="f_jasa"><option value="0">Tidak</option><option value="1">Ya</option></select></div></div>${dl}
+    <div class="row"><button class="btn pri" id="sv">Simpan</button><button class="btn" id="nw">Tambah</button><button class="btn" id="dl">Hapus</button><button class="btn" id="im">Impor CSV</button><button class="btn" id="ex">Ekspor CSV</button><input type="file" id="fi" accept=".csv,text/csv" hidden></div></div>
+    <div class="card" style="margin-top:14px"><input class="in" id="pq" placeholder="Filter produk…" value="${esc(PT.q)}" style="margin-bottom:10px"><div class="tw" id="pt2"></div><div class="row" id="pn" style="align-items:center;justify-content:space-between"></div></div>`;
+  $("#ct").querySelectorAll("#f_hpp,#f_harga,#f_margin").forEach(e => e.oninput = () => calc(e.id.slice(2)));
+  $("#pq").oninput = () => { PT.q = $("#pq").value; PT.p = 1; drawPT(); };
+  $("#sv").onclick = async ev => {
+    const b = ev.currentTarget; b.disabled = true;
+    const r = await act("saveProduct", getForm(), "Produk tersimpan"); b.disabled = false;
+    if (r){ await loadProducts(true); fillForm(null); drawPT(); }
+  };
+  $("#nw").onclick = () => fillForm(null);
+  $("#dl").onclick = async () => {
+    if (!CUR) return toast("Pilih produk dengan tombol Ganti dulu", "warn");
+    if (!await confirmDlg("Hapus produk " + CUR + "?", "Hapus")) return;
+    if (await act("deleteProduct", {kode:CUR}, "Produk dihapus")){ await loadProducts(true); fillForm(null); drawPT(); }
+  };
+  $("#im").onclick = () => $("#fi").click();
+  $("#fi").onchange = e => e.target.files[0] && importCSV(e.target.files[0]);
+  $("#ex").onclick = exportCSV;
+  $("#pt2").onclick = async e => {
+    const t = e.target.closest("[data-s],[data-e],[data-a]"); if (!t) return;
+    if (t.dataset.s){ PT.d = PT.s === t.dataset.s ? -PT.d : 1; PT.s = t.dataset.s; return drawPT(); }
+    const p = cache.find(x => x.kode === (t.dataset.e || t.dataset.a)); if (!p) return;
+    if (t.dataset.e){ fillForm(p); window.scrollTo({top:0, behavior:"smooth"}); return; }
+    const v = await formDlg("Penyesuaian stok: " + p.nama, [{id:"d", l:"Perubahan (+ tambah, - kurang)", t:"number"}, {id:"a", l:"Alasan (wajib)"}]); if (!v) return;
+    if (await act("adjustStock", {kode:p.kode, delta:v.d, alasan:v.a}, "Stok disesuaikan")){ await loadProducts(true); drawPT(); }
+  };
+  $("#pn").onclick = e => { const b = e.target.closest("button"); if (!b) return; PT.p += b.id === "px" ? 1 : -1; drawPT(); };
+  fillForm(null); drawPT();
+}
+
+/* ===== Master ===== */
+const MT = [["konsumen","Konsumen"],["supplier","Supplier"],["biaya","Daftar Biaya"],["kartu","Jenis Kartu"],["kategori","Kategori Barang"],["tipe","Tipe Barang"],["satuan","Satuan Barang"]];
+let MC = "konsumen";
+async function renderMaster(){
+  const L = (await act("getMaster", {t:MC})) || [];
+  $("#ct").innerHTML = `<div id="mw"><div class="chips" style="margin:0 0 14px">${MT.map(([k, l]) => `<button class="chip${k === MC ? " on" : ""}" data-t="${k}">${l}</button>`).join("")}</div>
+    <div class="card"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">${esc(MT.find(m => m[0] === MC)[1])} (${L.length})</h3><button class="btn pri" id="ma">Tambah</button></div>
+    <div class="tw"><table><tbody>${L.map(x => `<tr><td>${esc(x.nama)}</td><td class="n"><button class="btn" data-u="${x.id}">Ubah</button> <button class="btn" data-d="${x.id}">Hapus</button></td></tr>`).join("") || `<tr><td>Belum ada data</td></tr>`}</tbody></table></div></div></div>`;
+  $("#mw").onclick = async e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.t){ MC = b.dataset.t; return renderMaster(); }
+    const x = L.find(y => y.id == (b.dataset.u || b.dataset.d));
+    if (b.id === "ma" || b.dataset.u){
+      const v = await formDlg(x ? "Ubah data" : "Tambah data", [{id:"n", l:"Nama", v:x ? x.nama : ""}]); if (!v) return;
+      if (await act("saveMaster", {t:MC, id:x ? x.id : 0, nama:v.n}, "Data tersimpan")) renderMaster();
+    } else if (b.dataset.d && await confirmDlg("Hapus “" + x.nama + "”?", "Hapus")){
+      if (await act("deleteMaster", {t:MC, id:x.id}, "Data dihapus")) renderMaster();
+    }
+  };
+}
+/* ===== Penjualan (F1) dan Pembelian (F2) ===== */
+const TXC = {
+  sales:{t:"Penjualan", pty:"Konsumen", mt:"konsumen", save:"saveSale", list:"getSales", get:"getSale", cancel:"cancelSale", nota:"Nota Penjualan"},
+  purchase:{t:"Pembelian", pty:"Supplier", mt:"supplier", save:"savePurchase", list:"getPurchases", get:"getPurchase", cancel:"cancelPurchase", nota:"Nota Pembelian"}
+};
+const TX = {sales:{cart:[], rid:null, sel:null}, purchase:{cart:[], rid:null, sel:null}};
+const TIERS = [["harga","Umum"],["harga_a","Toko"],["harga_b","B"],["harga_c","C"],["harga_d","D"]];
+const uid = () => { try { return crypto.randomUUID(); } catch(e){ return "r" + Date.now() + Math.random().toString(16).slice(2); } };
+const lineSub = i => Math.max(0, i.harga * i.qty * (1 - i.dp / 100) - i.dr);
+const stokOf = kode => (cache.find(x => x.kode === kode) || {}).stok;
+function txTotals(k){
+  const sub = TX[k].cart.reduce((a, i) => a + lineSub(i), 0), dp = +($("#dp") || {}).value || 0, dr = +($("#dr") || {}).value || 0;
+  const disc = Math.min(sub, sub * dp / 100 + dr); return {sub, disc, total:Math.round(sub - disc)};
+}
+function addItem(k, p, qty, tier){
+  const T = TX[k]; qty = Math.floor(+qty) || 0;
+  if (qty <= 0) return toast("Qty harus lebih dari 0", "warn");
+  if (k === "sales" && !p.jasa){
+    const inC = T.cart.filter(i => i.kode === p.kode).reduce((a, i) => a + i.qty, 0);
+    if (inC + qty > p.stok) return toast("Stok " + p.nama + " tidak cukup (sisa " + (p.stok - inC) + ")", "err");
+  }
+  const harga = k === "sales" ? (p[tier] || p.harga) : (p.hpp || 0);
+  const ex = T.cart.find(i => i.kode === p.kode && i.harga === harga && !i.dp && !i.dr);
+  if (ex) ex.qty += qty; else T.cart.push({kode:p.kode, nama:p.nama, harga, qty, satuan:p.satuan || "Pcs", dp:0, dr:0, tier:k === "sales" ? tier : "", min:p.harga_min || 0, hpp:p.hpp || 0});
+  T.rid = null; drawCart(k);
+}
+function drawTotals(k){
+  const t = txTotals(k); if ($("#tb2")) $("#tb2").innerHTML = "<small>" + TX[k].cart.length + " baris</small><br><b>" + rp(t.total) + "</b>";
+  $("#tt").innerHTML = `Subtotal ${rp(t.sub)}${t.disc ? `, diskon -${rp(t.disc)}` : ""}<div style="font-size:26px;font-weight:800">Total ${rp(t.total)}</div>`;
+}
+function drawCart(k){
+  const T = TX[k], c = $("#cart"); if (!c) return;
+  const n = (x, f, v, w) => `<td><input class="in" style="width:${w}px" type="number" min="0" step="any" inputmode="decimal" data-i="${x}" data-f="${f}" value="${v}"></td>`;
+  c.innerHTML = T.cart.length ? `<table><thead><tr><th>Kode</th><th>Produk</th><th class="n">${k === "sales" ? "Harga" : "HPP"}</th>${k === "sales" ? "<th>Tingkat</th>" : ""}<th class="n">Qty</th><th>Unit</th><th class="n">Disk %</th><th class="n">Disk Rp</th><th class="n">Subtotal</th><th></th></tr></thead><tbody>`
+    + T.cart.map((i, x) => {
+      const low = k === "sales" && (i.harga < i.min || (isOwner() && i.hpp && i.harga < i.hpp));
+      return `<tr><td>${esc(i.kode)}</td><td>${esc(i.nama)}${low ? ` <span class="badge b-yl">Di bawah ${i.harga < i.min ? "harga minimum" : "HPP"}</span>` : ""}</td>${n(x, "harga", i.harga, 100)}`
+        + (k === "sales" ? `<td><select class="in" style="width:100px" data-i="${x}" data-f="tier">${TIERS.map(t => `<option value="${t[0]}"${t[0] === i.tier ? " selected" : ""}>${t[1]}</option>`).join("")}</select></td>` : "")
+        + `${n(x, "qty", i.qty, 70)}<td>${esc(i.satuan)}</td>${n(x, "dp", i.dp, 70)}${n(x, "dr", i.dr, 90)}<td class="n"><b>${rp(lineSub(i))}</b></td><td><button class="btn" data-x="${x}" aria-label="Hapus baris">✕</button></td></tr>`;
+    }).join("") + `</tbody></table>` : `<div style="padding:24px;color:var(--mu);text-align:center">Keranjang kosong. Cari produk di atas.</div>`;
+  c.querySelectorAll("table").forEach(t => { const h = [...t.querySelectorAll("thead th")].map(x => x.textContent); t.querySelectorAll("tbody tr").forEach(tr => [...tr.children].forEach((td, i) => td.dataset.l = h[i] || "")); });
+  drawTotals(k);
+}
+function receipt(n, k){
+  const C = TXC[k], ln = (l, v) => `<span style="display:flex;justify-content:space-between"><span>${l}</span><span>${v}</span></span>`;
+  return `<div class="rc"><img class="rl" src="${LOGO}" alt=""><b style="font-size:1.15em">SAHABAT Accessories &amp; Service</b><br>${C.nota}${n.batal ? " (BATAL)" : ""}<hr>No: ${esc(n.no)}<br>Tanggal: ${fmtD(n.tgl)}<br>${k === "sales" ? "Kasir" : "Petugas"}: ${esc(n.kasir || "-")}<br>${C.pty}: ${esc(n.konsumen || n.supplier || "-")}<hr>`
+    + n.items.map(i => `${esc(i.nama)}<br>${ln(i.qty + " x " + rp(i.harga), rp(i.subtotal))}`).join("") + `<hr>${ln("Subtotal", rp(n.subtotal ?? n.total))}${n.diskon ? ln("Diskon", "-" + rp(n.diskon)) : ""}${ln("<b>TOTAL</b>", "<b>" + rp(n.total) + "</b>")}${n.tempo_tgl ? ln("Jatuh tempo", fmtD(n.tempo_tgl)) : ""}<hr><div style="text-align:center">Terima kasih</div></div>`;
+}
+function receiptText(n, k){
+  const C = TXC[k], L = ["*SAHABAT Accessories & Service*", C.nota + (n.batal ? " (BATAL)" : ""), "No: " + n.no, "Tanggal: " + fmtD(n.tgl), C.pty + ": " + (n.konsumen || n.supplier || "-"), ""];
+  n.items.forEach(i => L.push(i.nama, "  " + i.qty + " x " + rp(i.harga) + " = " + rp(i.subtotal)));
+  L.push("", "Subtotal: " + rp(n.subtotal ?? n.total)); if (n.diskon) L.push("Diskon: -" + rp(n.diskon)); L.push("*TOTAL: " + rp(n.total) + "*", "Terima kasih");
+  return L.join("\n");
+}
+function shareNota(n, k){
+  const t = receiptText(n, k);
+  if (navigator.share) navigator.share({text:t}).catch(() => {}); else window.open("https://wa.me/?text=" + encodeURIComponent(t), "_blank", "noopener");
+}
+function printNota(n, k, paper){
+  let a = $("#pa");
+  if (!a){ a = document.createElement("div"); a.id = "pa"; document.body.appendChild(a); const st = document.createElement("style"); st.id = "pgs"; document.head.appendChild(st); }
+  $("#pgs").textContent = "@page{size:" + (paper === "a5" ? "A5" : paper + "mm auto") + ";margin:4mm}";
+  a.className = "r" + paper; a.innerHTML = receipt(n, k); setTimeout(() => window.print(), 50);
+}
+function notaDlg(n, k){
+  const o = document.createElement("div"); o.className = "ov";
+  o.innerHTML = `<div class="dlg w">${receipt(n, k)}<div class="row"><button class="btn" data-p="58">Cetak 58 mm</button><button class="btn" data-p="80">80 mm</button><button class="btn" data-p="a5">A5</button><button class="btn" data-s="1">Bagikan</button>${isOwner() && !n.batal ? `<button class="btn" data-c="1" style="color:var(--rd)">Batalkan nota</button>` : ""}<button class="btn pri" data-x="1">Tutup</button></div></div>`;
+  o.onclick = async e => {
+    const b = e.target.closest("button"); if (!b && e.target !== o) return;
+    if (b && b.dataset.s) return shareNota(n, k);
+    if (b && b.dataset.p) return printNota(n, k, b.dataset.p);
+    if (b && b.dataset.c){
+      const v = await formDlg("Batalkan nota " + n.no, [{id:"a", l:"Alasan pembatalan (wajib)"}], "Batalkan nota"); if (!v) return;
+      if (!v.a) return toast("Alasan wajib diisi", "warn");
+      if (await act(TXC[k].cancel, {no:n.no, alasan:v.a}, "Nota dibatalkan")){ o.remove(); await loadProducts(true); renderTx(k); }
+      return;
+    }
+    o.remove();
+  };
+  document.body.appendChild(o);
+}
+async function saveTx(k){
+  const T = TX[k], C = TXC[k], b = $("#sv");
+  if (!T.cart.length) return toast("Keranjang masih kosong", "warn");
+  if (!T.rid) T.rid = uid();
+  b.disabled = true; if ($("#sv2")) $("#sv2").disabled = true;
+  const d = {requestId:T.rid, tgl:$("#h_tgl").value, [k === "sales" ? "konsumen" : "supplier"]:$("#h_p").value.trim(), no_bukti:$("#h_nb").value.trim(), tempo_hari:+$("#h_th").value || 0,
+    keterangan:$("#h_kt").value.trim(), diskon_persen:+$("#dp").value || 0, diskon_rp:+$("#dr").value || 0,
+    items:T.cart.map(i => ({kode:i.kode, harga:i.harga, qty:i.qty, diskon_persen:i.dp, diskon_rp:i.dr}))};
+  if (k === "purchase") d.updateHpp = !!($("#uh") && $("#uh").checked);
+  const n = await act(C.save, d);   // gagal: pesan tampil, keranjang tetap utuh, requestId sama dipakai lagi
+  b.disabled = false; if ($("#sv2")) $("#sv2").disabled = false; if (!n) return;
+  T.cart = []; T.rid = null; toast(C.t + " tersimpan: " + n.no, "ok");
+  await loadProducts(true); renderTx(k); if (matchMedia("(max-width:900px)").matches) notaDlg(n, k); else printNota(n, k, "80");
+}
+async function loadTxList(k){
+  const C = TXC[k], r = await act(C.list, {tgl:isoD(new Date())}); if (!r || !$("#tl")) return;
+  $("#tl").innerHTML = `<table><thead><tr><th>No. nota</th><th>${C.pty}</th><th class="n">Total</th><th>Status</th></tr></thead><tbody>`
+    + (r.map(x => `<tr data-n="${esc(x.no)}" style="cursor:pointer"><td>${esc(x.no)}</td><td>${esc(x.pihak)}</td><td class="n">${rp(x.total)}</td><td>${x.batal ? `<span class="badge b-rd">Batal</span>` : `<span class="badge b-gr">Sah</span>`}</td></tr>`).join("") || `<tr><td colspan="4" style="color:var(--mu)">Belum ada nota hari ini</td></tr>`) + `</tbody></table>`;
+}
+async function renderTx(k){
+  if (!cache.length) await loadProducts(true);
+  const C = TXC[k], T = TX[k], M = (await act("getMaster", {t:C.mt})) || [], today = isoD(new Date());
+  $("#ct").innerHTML = `<div class="card"><div class="fg">
+    <div><label>Tanggal</label><input class="in" type="date" id="h_tgl" value="${today}"></div>
+    <div><label>No. nota</label><input class="in" id="h_no" readonly placeholder="Otomatis dari server"></div>
+    <div><label>${C.pty}</label><input class="in" id="h_p" list="h_dl" value="${k === "sales" ? "Umum" : ""}"></div>
+    <div><label>No. bukti</label><input class="in" id="h_nb"></div>
+    <div><label>Tempo (hari)</label><input class="in" id="h_th" type="number" min="0" value="0"></div>
+    <div><label>Jatuh tempo</label><input class="in" id="h_tt" readonly></div></div>
+    <datalist id="h_dl">${M.map(x => `<option value="${esc(x.nama)}">`).join("")}</datalist></div>
+  <div class="card" style="margin-top:14px"><div class="fg" style="align-items:end">
+    <div style="grid-column:1/-1;position:relative"><label>Produk (ketik nama, kode, atau kategori)</label><input class="in" id="tp" autocomplete="off"><div class="dd" id="tpd"></div></div>
+    <div><label>Qty</label><input class="in" id="tq" type="number" min="1" value="1" inputmode="numeric"></div>
+    ${k === "sales" ? `<div><label>Tingkat harga</label><select class="in" id="tr">${TIERS.map(t => `<option value="${t[0]}">${t[1]}</option>`).join("")}</select></div>` : ""}
+    <div><button class="btn pri" id="ad" style="width:100%">Tambah</button></div></div></div>
+  <div class="card" style="margin-top:14px"><div class="tw" id="cart"></div>
+    <div class="fg" style="margin-top:14px"><div style="grid-column:1/-1"><label>Keterangan</label><input class="in" id="h_kt"></div>
+    <div><label>Diskon total %</label><input class="in" id="dp" type="number" min="0" max="100" value="0"></div><div><label>Diskon total Rp</label><input class="in" id="dr" type="number" min="0" value="0"></div></div>
+    <div id="tt" style="text-align:right;margin-top:12px"></div>
+    <div class="row">${k === "purchase" && isOwner() ? `<label style="display:flex;align-items:center;gap:8px;min-height:44px"><input type="checkbox" id="uh">Perbarui HPP produk</label>` : ""}<button class="btn" id="nb">Nota Baru</button><button class="btn" id="bt">Batal</button><button class="btn pri" id="sv">Simpan &amp; Cetak</button></div></div>
+  <div class="card" style="margin-top:14px"><h3>${C.t} hari ini</h3><div class="tw" id="tl"></div></div>
+  <div class="cbsp"></div><div class="cbar"><div id="tb2"></div><button class="btn pri" id="sv2">Simpan &amp; Cetak</button></div>`;
+  const pick = p => { T.sel = p; $("#tp").value = p.nama; $("#tpd").style.display = "none"; $("#tq").focus(); $("#tq").select(); };
+  $("#tp").oninput = () => {
+    T.sel = null; const v = $("#tp").value, r = findProducts(v).slice(0, 6), d = $("#tpd");
+    d.innerHTML = r.map(p => `<button class="it" data-k="${esc(p.kode)}"><span><b>${esc(p.nama)}</b></span><span style="text-align:right">${rp(k === "sales" ? p.harga : (p.hpp || 0))} ${stockBadge(p)}</span></button>`).join("") || `<div style="padding:14px;color:var(--mu)">Barang tidak ditemukan</div>`;
+    d.style.display = v.trim() ? "block" : "none";
+  };
+  $("#tp").onkeydown = e => {
+    if (e.key !== "Enter") return; e.preventDefault();
+    const v = $("#tp").value.trim(), ex = cache.find(x => x.kode === v);
+    if (ex){ T.sel = ex; $("#tq").value = 1; add(); return; }
+    const r = findProducts(v); if (!T.sel && r[0]) pick(r[0]);
+  };
+  $("#tpd").onclick = e => { const b = e.target.closest(".it"); if (b) pick(cache.find(x => x.kode === b.dataset.k)); };
+  const add = () => {
+    if (!T.sel) return toast("Pilih produk dari saran terlebih dahulu", "warn");
+    addItem(k, T.sel, $("#tq").value, k === "sales" ? $("#tr").value : ""); T.sel = null; $("#tp").value = ""; $("#tq").value = 1; $("#tp").focus();
+  };
+  $("#tq").onkeydown = e => { if (e.key === "Enter"){ e.preventDefault(); add(); } };
+  $("#ad").onclick = add;
+  $("#h_th").oninput = () => { const th = +$("#h_th").value || 0, d = new Date($("#h_tgl").value + "T00:00:00"); d.setDate(d.getDate() + th); $("#h_tt").value = th ? fmtD(isoD(d)) : ""; };
+  $("#dp").oninput = $("#dr").oninput = () => { T.rid = null; drawTotals(k); };
+  $("#cart").onchange = e => {
+    const t = e.target, i = T.cart[+t.dataset.i]; if (!i) return; const f = t.dataset.f, v = +t.value;
+    if (f === "tier"){ const p = cache.find(x => x.kode === i.kode); i.tier = t.value; i.harga = (p && p[t.value]) || (p ? p.harga : i.harga); }
+    else if (f === "qty"){
+      const q = Math.floor(v), other = T.cart.filter((x, y) => x.kode === i.kode && y !== +t.dataset.i).reduce((a, x) => a + x.qty, 0), st = stokOf(i.kode), p = cache.find(x => x.kode === i.kode);
+      if (!(q > 0)) toast("Qty harus lebih dari 0", "warn"); else if (k === "sales" && p && !p.jasa && other + q > st) toast("Stok tidak cukup (sisa " + (st - other) + ")", "err"); else i.qty = q;
+    } else i[f] = Math.max(0, v || 0);
+    T.rid = null; drawCart(k);
+  };
+  $("#cart").onclick = e => { const b = e.target.closest("[data-x]"); if (b){ T.cart.splice(+b.dataset.x, 1); T.rid = null; drawCart(k); } };
+  $("#nb").onclick = async () => { if (T.cart.length && !await confirmDlg("Buang keranjang saat ini dan mulai nota baru?", "Nota baru")) return; T.cart = []; T.rid = null; renderTx(k); };
+  $("#bt").onclick = async () => { if (T.cart.length && await confirmDlg("Kosongkan keranjang?", "Kosongkan")){ T.cart = []; T.rid = null; drawCart(k); } };
+  $("#sv").onclick = $("#sv2").onclick = () => saveTx(k);
+  $("#tl").onclick = async e => { const r = e.target.closest("[data-n]"); if (!r) return; const n = await act(C.get, {no:r.dataset.n}); if (n) notaDlg(n, k); };
+  if (k === "sales" && window.CART && CART.length) CART.splice(0).forEach(c => { const p = cache.find(x => x.kode === c.kode); if (p) addItem(k, p, 1, "harga"); });
+  drawCart(k); loadTxList(k);
+}
+
+/* ===== Biaya (F3) ===== */
+let EXL = [];
+async function renderExpense(){
+  const today = isoD(new Date()), M = (await act("getMaster", {t:"biaya"})) || [];
+  $("#ct").innerHTML = `<div class="card"><div class="fg"><div><label>Tanggal</label><input class="in" type="date" id="e_t" value="${today}"></div><div><label>Nomor</label><input class="in" id="e_n" readonly placeholder="Otomatis"></div>
+    <div><label>Kategori</label><input class="in" id="e_k" list="e_dl"></div><div><label>Keterangan</label><input class="in" id="e_ket"></div><div><label>Jumlah (Rp)</label><input class="in" id="e_j" type="number" min="0" step="any" inputmode="decimal"></div></div>
+    <datalist id="e_dl">${M.map(x => `<option value="${esc(x.nama)}">`).join("")}</datalist><div class="row"><button class="btn pri" id="e_s">Simpan</button><button class="btn" id="e_b">Baru</button></div></div>
+    <div class="card" style="margin-top:14px"><div class="fg" style="align-items:end"><div><label>Dari</label><input class="in" type="date" id="e_d" value="${today.slice(0, 8)}01"></div><div><label>Sampai</label><input class="in" type="date" id="e_a" value="${today}"></div><div><button class="btn" id="e_f" style="width:100%">Tampilkan</button></div></div><div class="tw" id="e_l" style="margin-top:12px"></div></div>`;
+  const clear = () => { ["e_n", "e_k", "e_ket", "e_j"].forEach(i => $("#" + i).value = ""); $("#e_t").value = today; };
+  const load = async () => {
+    EXL = (await act("getExpenses", {dari:$("#e_d").value, sampai:$("#e_a").value})) || [];
+    $("#e_l").innerHTML = `<table><thead><tr><th>Nomor</th><th>Tanggal</th><th>Kategori</th><th>Keterangan</th><th class="n">Jumlah</th><th></th></tr></thead><tbody>`
+      + (EXL.map(x => `<tr><td>${esc(x.nomor)}</td><td>${fmtD(x.tgl)}</td><td>${esc(x.kategori)}</td><td>${esc(x.keterangan)}</td><td class="n">${rp(x.jumlah)}</td><td><button class="btn" data-u="${esc(x.nomor)}">Ubah</button> <button class="btn" data-d="${esc(x.nomor)}">Hapus</button></td></tr>`).join("") || `<tr><td colspan="6" style="color:var(--mu)">Belum ada biaya pada rentang ini</td></tr>`)
+      + `</tbody><tfoot><tr><th colspan="4">Total</th><th class="n">${rp(EXL.reduce((a, x) => a + x.jumlah, 0))}</th><th></th></tr></tfoot></table>`;
+  };
+  $("#e_f").onclick = load; $("#e_b").onclick = clear;
+  $("#e_s").onclick = async ev => {
+    const b = ev.currentTarget; b.disabled = true;
+    const r = await act("saveExpense", {nomor:$("#e_n").value, tgl:$("#e_t").value, kategori:$("#e_k").value, keterangan:$("#e_ket").value, jumlah:$("#e_j").value}, "Biaya tersimpan");
+    b.disabled = false; if (r){ clear(); load(); }
+  };
+  $("#e_l").onclick = async e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.u){ const x = EXL.find(y => y.nomor === b.dataset.u); $("#e_n").value = x.nomor; $("#e_t").value = x.tgl; $("#e_k").value = x.kategori; $("#e_ket").value = x.keterangan; $("#e_j").value = x.jumlah; window.scrollTo({top:0, behavior:"smooth"}); }
+    else if (await confirmDlg("Hapus biaya " + b.dataset.d + "?", "Hapus") && await act("deleteExpense", {nomor:b.dataset.d}, "Biaya dihapus")) load();
+  };
+  load();
+}
+/* ===== Laporan (F6) ===== */
+const RT = [["sales","Penjualan"],["purchase","Pembelian"],["expense","Operasional"],["profit","Laba Rugi"],["stock","Persediaan"]];
+const RA = {sales:"reportSales", purchase:"reportPurchases", expense:"reportExpenses", profit:"reportProfit", stock:"reportStock"};
+let RC = "sales", RD = null;
+const sumBy = (a, k) => a.reduce((x, y) => x + y[k], 0);
+function rangeOf(p){
+  const t = new Date(), iso = isoD(t);
+  if (p === "today") return [iso, iso];
+  if (p === "week"){ const d = new Date(t); d.setDate(t.getDate() - ((t.getDay() + 6) % 7)); return [isoD(d), iso]; }
+  return [iso.slice(0, 8) + "01", iso];
+}
+function buildReport(t, r){
+  if (t === "sales" || t === "purchase"){
+    const g = {}; r.rows.forEach(x => { const a = g[x.pihak] = g[x.pihak] || [0, 0]; a[0]++; a[1] += x.total; });
+    const pn = t === "sales" ? "Konsumen" : "Supplier";
+    return {cols:[["No. nota","t"],["Tanggal","t"],[pn,"t"],["Total","r"]], rows:r.rows.map(x => [x.no, fmtD(x.tgl), x.pihak, x.total]), foot:["Total", "", "", sumBy(r.rows, "total")],
+      sum:{cols:[["Per " + pn.toLowerCase(),"t"],["Jumlah nota","n"],["Total","r"]], rows:Object.entries(g).sort((a, b) => b[1][1] - a[1][1]).map(([k, v]) => [k || "-", v[0], v[1]])}};
+  }
+  if (t === "expense") return {cols:[["Nomor","t"],["Tanggal","t"],["Kategori","t"],["Keterangan","t"],["Jumlah","r"]], rows:r.rows.map(x => [x.nomor, fmtD(x.tgl), x.kategori, x.keterangan, x.jumlah]), foot:["Total", "", "", "", sumBy(r.rows, "jumlah")]};
+  if (t === "profit"){ const k = r.penjualan - r.hpp; return {cols:[["Keterangan","t"],["Jumlah","r"]], rows:[["Penjualan", r.penjualan], ["HPP barang terjual", -r.hpp], ["Laba kotor", k], ["Biaya operasional", -r.biaya], ["Laba bersih", k - r.biaya]]}; }
+  return {cols:[["Kode","t"],["Barang","t"],["Stok","n"],["HPP","r"],["Nilai","r"]], rows:r.rows.map(x => [x.kode, x.nama, x.stok, x.hpp, x.nilai]), foot:["Total", "", sumBy(r.rows, "stok"), "", sumBy(r.rows, "nilai")]};
+}
+function tableHtml(R){
+  const f = (v, t) => v === "" ? "" : t === "r" ? rp(v) : t === "n" ? v : esc(v), al = i => R.cols[i][1] !== "t" ? "n" : "";
+  return `<table><thead><tr>${R.cols.map((c, i) => `<th class="${al(i)}">${esc(c[0])}</th>`).join("")}</tr></thead><tbody>`
+    + (R.rows.map(r => `<tr>${r.map((v, i) => `<td class="${al(i)}">${f(v, R.cols[i][1])}</td>`).join("")}</tr>`).join("") || `<tr><td colspan="${R.cols.length}" style="color:var(--mu)">Tidak ada data pada rentang ini</td></tr>`)
+    + `</tbody>${R.foot ? `<tfoot><tr>${R.foot.map((v, i) => `<th class="${al(i)}">${f(v, R.cols[i][1])}</th>`).join("")}</tr></tfoot>` : ""}</table>`;
+}
+function saveCSV(name, R){
+  const q = v => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+  const csv = [R.cols.map(c => q(c[0])).join(",")].concat(R.rows.map(r => r.map(q).join(","))).join("\n");
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([csv], {type:"text/csv"})); a.download = name; a.click();
+}
+function printHtml(html){
+  let a = $("#pa");
+  if (!a){ a = document.createElement("div"); a.id = "pa"; document.body.appendChild(a); const st = document.createElement("style"); st.id = "pgs"; document.head.appendChild(st); }
+  $("#pgs").textContent = "@page{size:A4;margin:12mm}"; a.className = "rrep"; a.innerHTML = html; setTimeout(() => window.print(), 50);
+}
+function renderReport(){
+  const tabs = RT.filter(([k]) => isOwner() || !["profit", "stock"].includes(k)); if (!tabs.some(t => t[0] === RC)) RC = "sales";
+  const [d0, d1] = rangeOf("month");
+  $("#ct").innerHTML = `<div id="rw"><div class="chips" style="margin:0 0 14px">${tabs.map(([k, l]) => `<button class="chip${k === RC ? " on" : ""}" data-t="${k}">${l}</button>`).join("")}</div>
+    <div class="card"><div class="row" style="margin-top:0">${[["today", "Hari ini"], ["week", "Minggu ini"], ["month", "Bulan ini"]].map(([k, l]) => `<button class="chip" data-r="${k}">${l}</button>`).join("")}</div>
+    <div class="fg" style="margin-top:10px;align-items:end"><div><label>Dari</label><input class="in" type="date" id="r_d" value="${d0}"></div><div><label>Sampai</label><input class="in" type="date" id="r_a" value="${d1}"></div><div><button class="btn pri" id="r_go" style="width:100%">Tampilkan</button></div></div></div>
+    <div class="card" style="margin-top:14px"><div class="row" style="margin-top:0"><button class="btn" id="r_csv">Ekspor CSV</button><button class="btn" id="r_pr">Cetak / PDF</button></div><div class="tw" id="r_out" style="margin-top:12px"></div><div class="tw" id="r_sum" style="margin-top:16px"></div></div></div>`;
+  const run = async () => {
+    const dari = $("#r_d").value, sampai = $("#r_a").value; if (dari > sampai) return toast("Tanggal awal melebihi tanggal akhir", "warn");
+    const r = await act(RA[RC], {dari, sampai}); if (!r) return;
+    RD = buildReport(RC, r); RD.title = RT.find(t => t[0] === RC)[1]; RD.per = RC === "stock" ? "Posisi stok saat ini" : "Periode " + fmtD(dari) + " s/d " + fmtD(sampai);
+    $("#r_out").innerHTML = tableHtml(RD); $("#r_sum").innerHTML = RD.sum ? tableHtml(RD.sum) : "";
+  };
+  $("#rw").onclick = e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.dataset.t){ RC = b.dataset.t; return renderReport(); }
+    if (b.dataset.r){ const [a, z] = rangeOf(b.dataset.r); $("#r_d").value = a; $("#r_a").value = z; return run(); }
+    if (b.id === "r_go") run();
+    if (b.id === "r_csv"){ if (RD) saveCSV("laporan-" + RC + ".csv", RD); else toast("Tampilkan laporan dulu", "warn"); }
+    if (b.id === "r_pr"){ if (RD) printHtml(`<img src="${LOGO}" alt="" style="height:56px;width:56px;display:block;margin-bottom:6px"><h2>SAHABAT Accessories &amp; Service</h2><h3>Laporan ${esc(RD.title)}</h3><p>${esc(RD.per)}</p>` + tableHtml(RD) + (RD.sum ? "<br>" + tableHtml(RD.sum) : "")); else toast("Tampilkan laporan dulu", "warn"); }
+  };
+  run();
+}
+
+/* ===== Utilitas ===== */
+async function renderUtility(){
+  $("#ct").innerHTML = `<div class="card"><h3>Backup data</h3><p style="color:var(--mu)">Menyalin seluruh data ke Google Drive${DEMO ? " (mode demo: disimpan di memori)" : ""}.</p><div class="pgb" id="bp" style="display:none"><i></i></div>
+    <div class="row"><button class="btn pri" id="bk">Backup sekarang</button><button class="btn" id="bo">Hapus backup lama (simpan 10)</button></div><p id="bm"></p></div>
+    <div class="card" style="margin-top:14px"><h3>10 backup terakhir</h3><div class="tw" id="bl"></div></div>`;
+  const list = async () => {
+    const L = (await act("listBackups", {})) || [];
+    $("#bl").innerHTML = `<table><thead><tr><th>Nama file</th><th>Waktu</th><th class="n">Ukuran</th><th></th></tr></thead><tbody>` + (L.map(b => `<tr><td>${esc(b.nama)}</td><td>${new Date(b.waktu).toLocaleString("id-ID")}</td><td class="n">${Math.max(1, Math.round(b.ukuran / 1024))} KB</td><td>${/^https:\/\//.test(b.url || "") ? `<a href="${esc(b.url)}" target="_blank" rel="noopener">Buka</a> ` : ""}<button class="btn" data-r="${esc(b.id)}">Restore</button></td></tr>`).join("") || `<tr><td colspan="4" style="color:var(--mu)">Belum ada backup</td></tr>`) + `</tbody></table>`;
+    return L;
+  };
+  let L = await list();
+  $("#bk").onclick = async ev => {
+    const b = ev.currentTarget, bar = $("#bp"), i = $("i", bar); b.disabled = true; bar.style.display = "block"; let w = 5; i.style.width = w + "%";
+    const iv = setInterval(() => { w = Math.min(90, w + 8); i.style.width = w + "%"; }, 400);
+    const r = await act("backup", {}); clearInterval(iv); b.disabled = false; i.style.width = r ? "100%" : "0";
+    if (r){ $("#bm").innerHTML = "Backup selesai: <b>" + esc(r.nama) + "</b>" + (/^https:\/\//.test(r.url || "") ? ` <a href="${esc(r.url)}" target="_blank" rel="noopener">Buka file</a>` : ""); toast("Backup selesai", "ok"); L = await list(); }
+  };
+  $("#bo").onclick = async () => { if (await confirmDlg("Hapus backup lama dan simpan 10 terbaru?", "Hapus") ) { const n = await act("deleteOldBackups", {}); if (n !== null){ toast(n + " backup lama dihapus", "ok"); L = await list(); } } };
+  $("#bl").onclick = async e => {
+    const x = e.target.closest("[data-r]"); if (!x) return; const b = L.find(y => y.id === x.dataset.r); if (!b) return;
+    const ok1 = await confirmDlg(`Pratinjau ${b.nama}: ${b.produk} produk, ${b.nota_jual} nota jual, ${b.nota_beli} nota beli, ${b.biaya} biaya. Data saat ini akan ditimpa; backup otomatis dibuat lebih dulu. Lanjutkan?`, "Lanjut"); if (!ok1) return;
+    const v = await formDlg("Ketik RESTORE untuk memastikan", [{id:"k", l:"Konfirmasi"}], "Restore"); if (!v) return;
+    if (v.k !== "RESTORE") return toast("Ketikan tidak cocok, restore dibatalkan", "warn");
+    if (await act("restore", {id:b.id, konfirmasi:v.k}, "Restore selesai")){ await loadProducts(true); L = await list(); }
+  };
+}
+
+/* ===== Akun ===== */
+function userDlg(u){
+  const ids = MENUS.filter(m => !["dashboard", "utility", "account"].includes(m[0]));
+  return new Promise(res => {
+    const o = document.createElement("div"); o.className = "ov";
+    o.innerHTML = `<div class="dlg w"><h3 style="margin:0 0 12px">${u ? "Ubah akun" : "Tambah akun"}</h3>
+      <div class="fld"><label>Username</label><input class="in" id="u_n" value="${esc(u ? u.username : "")}" ${u ? "readonly" : ""} autocomplete="off"></div>
+      ${u ? "" : `<div class="fld"><label>Password (minimal 6 karakter)</label><input class="in" id="u_p" type="password" autocomplete="new-password"></div>`}
+      <div class="fld"><label>Role</label><select class="in" id="u_r"><option value="admin">Admin</option><option value="owner">Owner</option></select></div>
+      <div class="fld" id="u_m"><label>Menu yang diizinkan</label>${ids.map(m => `<label style="display:flex;gap:8px;align-items:center;min-height:36px;font-weight:400"><input type="checkbox" value="${m[0]}" ${u && Array.isArray(u.perms) && u.perms.includes(m[0]) ? "checked" : ""}>${esc(m[1])}</label>`).join("")}</div>
+      <label style="display:flex;gap:8px;align-items:center;min-height:44px;margin-top:8px"><input type="checkbox" id="u_a" ${!u || u.aktif ? "checked" : ""}>Akun aktif</label>
+      <div class="row"><button class="btn" data-v="0">Batal</button><button class="btn pri" data-v="1">Simpan</button></div></div>`;
+    const r = $("#u_r", o); r.value = u ? u.role : "admin"; const tg = () => $("#u_m", o).style.display = r.value === "owner" ? "none" : "block"; r.onchange = tg; tg();
+    o.onclick = e => {
+      const b = e.target.closest("button"); if (!b && e.target !== o) return;
+      if (!b || b.dataset.v !== "1"){ o.remove(); return res(null); }
+      res({username:$("#u_n", o).value.trim(), password:u ? "" : $("#u_p", o).value, role:r.value, perms:[...o.querySelectorAll("#u_m input:checked")].map(i => i.value), aktif:$("#u_a", o).checked}); o.remove();
+    };
+    document.body.appendChild(o);
+  });
+}
+async function renderAccount(){
+  const L = (await act("getUsers", {})) || [], mn = p => (MENUS.find(m => m[0] === p) || [0, p])[1];
+  $("#ct").innerHTML = `<div class="card" id="aw"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Daftar akun (${L.length})</h3><button class="btn pri" id="au">Tambah akun</button></div>
+    <div class="tw"><table><thead><tr><th>Username</th><th>Role</th><th>Menu</th><th>Status</th><th></th></tr></thead><tbody>${L.map(u => `<tr><td>${esc(u.username)}</td><td><span class="badge ${u.role === "owner" ? "b-or" : "b-bl"}">${u.role === "owner" ? "Owner" : "Admin"}</span></td><td style="white-space:normal">${u.perms === "*" ? "Semua menu" : esc((u.perms || []).map(mn).join(", ") || "Dashboard saja")}</td><td>${u.aktif ? "Aktif" : "Nonaktif"}</td><td><button class="btn" data-e="${esc(u.username)}">Ubah</button> <button class="btn" data-p="${esc(u.username)}">Password</button>${u.username === "owner" ? "" : ` <button class="btn" data-d="${esc(u.username)}">Hapus</button>`}</td></tr>`).join("")}</tbody></table></div></div>`;
+  $("#aw").onclick = async e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.id === "au" || b.dataset.e){
+      const v = await userDlg(b.dataset.e ? L.find(u => u.username === b.dataset.e) : null); if (!v) return;
+      if (await act("saveUser", v, "Akun tersimpan")) renderAccount();
+    } else if (b.dataset.p){
+      const v = await formDlg("Ganti password: " + b.dataset.p, [{id:"p", l:"Password baru (minimal 6 karakter)", t:"password"}], "Ganti password"); if (!v) return;
+      await act("saveUser", {username:b.dataset.p, password:v.p, passwordOnly:true}, "Password diganti");
+    } else if (b.dataset.d && await confirmDlg("Hapus akun " + b.dataset.d + "?", "Hapus")){
+      if (await act("deleteUser", {username:b.dataset.d}, "Akun dihapus")) renderAccount();
+    }
+  };
+}
+const PAGES = { dashboard: renderDashboard, search: renderSearch, product: renderProduct, master: renderMaster, sales: () => renderTx("sales"), purchase: () => renderTx("purchase"), expense: renderExpense, report: renderReport, utility: renderUtility, account: renderAccount };
+async function renderDashboard(){
+  const ct = $("#ct"); ct.innerHTML = `<div class="card ph">Memuat dashboard…</div>`;
+  let d;
+  try { d = await api("dashboard"); }
+  catch(e){ ct.innerHTML = `<div class="card ph"><div class="e">⚠️</div><p>${esc(e.message)}</p><button class="btn pri" id="rt">Coba lagi</button></div>`; $("#rt").onclick = renderDashboard; toast(e.message, "err"); return; }
+  const max = Math.max(1, ...d.week.map(x => x.total));
+  const kpi = (c, l, v, id) => `<${id ? "button" : "div"} class="card kpi ${c}" ${id ? `data-go="${id}"` : ""}><div class="l">${l}</div><div class="v">${v}</div></${id ? "button" : "div"}>`;
+  ct.innerHTML = `<div class="grid">
+    ${kpi("", "Penjualan hari ini", rp(d.sales))}${kpi("o", "Pembelian", rp(d.purch))}${kpi("y", "Biaya operasional", rp(d.exp))}
+    ${isOwner() ? kpi("g", "Estimasi laba", rp(d.profit)) : ""}${kpi("r", "Stok menipis", d.low + " barang", can("search") ? "search" : "")}</div>
+  <div class="two"><div class="card"><h3>Penjualan 7 hari terakhir</h3><div class="chart">${d.week.map(x => `<div title="${rp(x.total)}"><i style="height:${Math.round(x.total / max * 140)}px"></i><span>${fmtD(x.tgl).slice(0,5)}</span></div>`).join("")}</div></div>
+  <div class="card"><h3>Barang terlaris</h3><div class="tw"><table><tbody>${d.top.map(t => `<tr><td>${esc(t.nama)}</td><td class="n"><b>${t.qty}</b> pcs</td></tr>`).join("")}</tbody></table></div></div></div>
+  <div class="card" style="margin-top:14px"><h3>Penjualan terbaru</h3><div class="tw"><table><thead><tr><th>No. nota</th><th>Tanggal</th><th>Konsumen</th><th class="n">Total</th></tr></thead>
+    <tbody>${d.recent.map(r => `<tr><td>${esc(r.no)}</td><td>${fmtD(r.tgl)}</td><td>${esc(r.konsumen)}</td><td class="n">${rp(r.total)}</td></tr>`).join("")}</tbody></table></div></div>`;
+  ct.querySelectorAll("[data-go]").forEach(b => b.onclick = () => { SF.f = "low"; SF.k = ""; SF.q = ""; go(b.dataset.go); });
+}
+
+/* ===== Pintasan keyboard ===== */
+document.addEventListener("keydown", e => {
+  if (!S) return;
+  if (FKEYS[e.key]){ e.preventDefault(); go(FKEYS[e.key]); }
+  else if (e.key === "F5" || (e.key === "/" && !/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName))){ e.preventDefault(); const g = $("#gs"); g && g.focus(); }
+});
+window.addEventListener("online", () => $("#off").style.display = "none");
+window.addEventListener("offline", () => $("#off").style.display = "block");
+
+/* ===== Pengecekan ringan ===== */
+window.selfTest = async function(){
+  const r = [], add = (n, k) => { r.push(!!k); console.log((k ? "LULUS  " : "GAGAL  ") + n); };
+  add("esc mencegah XSS", esc("<b>\"x\"</b>") === "&lt;b&gt;&quot;x&quot;&lt;/b&gt;");
+  add("format rupiah id-ID", /1\.250\.000/.test(rp(1250000)));
+  add("format tanggal dd/mm/yyyy", fmtD("2026-11-10") === "10/11/2026");
+  add("hitung baris keranjang (10.000 x 3, diskon 10% dan Rp 500 = 26.500)", lineSub({harga:10000, qty:3, dp:10, dr:500}) === 26500);
+  add("mode " + (DEMO ? "DEMO" : "ONLINE") + " dan sesi aktif", !!S);
+  add("menu Akun dan Utilitas hanya owner", isOwner() || (!can("account") && !can("utility")));
+  if (S){
+    try { const p = await api("getProducts", {}); add("muat produk (" + p.length + " barang)", Array.isArray(p)); add("HPP tidak dikirim ke non-owner", isOwner() || p.every(x => x.hpp === undefined)); }
+    catch(e){ add("muat produk: " + e.message, false); }
+    try { const d = await api("dashboard"); add("dashboard (7 hari)", typeof d.sales === "number" && d.week.length === 7); }
+    catch(e){ add("dashboard: " + e.message, false); }
+  }
+  if (!DEMO){
+    try { const j = await (await fetch(CFG.GAS_URL)).json(); add("doGet aktif", j.ok === true); }
+    catch(e){ add("doGet aktif (periksa URL dan akses Anyone)", false); }
+  }
+  const ok = r.every(Boolean); toast(ok ? "Pengecekan lulus (" + r.length + ")" : "Ada pengecekan gagal, lihat konsol", ok ? "ok" : "err"); return ok;
+};
+
+/* ===== Mulai ===== */
+(function boot(){
+  const raw = ss.get("sahabat_sess");
+  try { S = raw ? JSON.parse(raw) : null; } catch(e){ S = null; }
+  if (S && S.user) showApp(); else showLogin();
+  if (!navigator.onLine) $("#off").style.display = "block";
+})();
+</script>
+</body>
+</html>
